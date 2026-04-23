@@ -24,6 +24,10 @@ const PreviewPane = dynamic(() => import('@/app/components/PreviewPane'), {
   ),
 })
 
+const WarningPanel = dynamic(() => import('@/app/components/WarningPanel'), {
+  ssr: false,
+})
+
 const CLIENTS = [
   { name: 'Naver Mail', ruleset: naverRuleset },
   { name: 'Gmail', ruleset: gmailRuleset },
@@ -161,6 +165,7 @@ export default function Home() {
           ))}
         </div>
       </main>
+      <WarningPanel html={html} clients={[...CLIENTS]} />
     </div>
   )
 }
