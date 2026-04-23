@@ -36,8 +36,19 @@ export default function PreviewPane({ html, clientName, ruleset }: PreviewPanePr
   return (
     <div className="flex flex-col flex-1 min-h-0">
       <div className="flex items-center justify-between h-8 px-3 bg-zinc-100 border-b border-zinc-200">
-        <span className="text-xs font-medium text-zinc-500">{clientName}</span>
-        <div className="flex gap-1">
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-medium text-zinc-500">{clientName}</span>
+          <span className={`px-1.5 py-0.5 text-[10px] font-medium rounded ${
+            ruleset.confidence === 'estimated'
+              ? 'bg-amber-100 text-amber-700'
+              : 'bg-green-100 text-green-700'
+          }`}>
+            {ruleset.confidence === 'estimated' ? 'Estimated' : 'High'}
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] text-zinc-400 italic">Simulation</span>
+          <div className="flex gap-1">
           <button
             onClick={() => setViewport('desktop')}
             className={`px-2 py-0.5 text-xs rounded ${
@@ -60,6 +71,7 @@ export default function PreviewPane({ html, clientName, ruleset }: PreviewPanePr
           >
             Mobile
           </button>
+          </div>
         </div>
       </div>
       <div className="flex-1 overflow-auto bg-zinc-50 flex justify-center">
