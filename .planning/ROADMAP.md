@@ -16,7 +16,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Naver Simulation Engine** - Pure-function CSS transform for Naver Mail (SIM-01) ✓ 2026-04-24
 - [x] **Phase 3: Gmail Simulation Engine** - All-or-nothing `<style>` block behavior (SIM-03) ✓ 2026-04-24
 - [x] **Phase 4: Daum/Kakao Simulation Engine** - Conservative estimated baseline (SIM-02) ✓ 2026-04-24
-- [ ] **Phase 5: Code Editor** - Monaco editor with syntax highlighting and paste fidelity (EDIT-01, EDIT-02)
+- [x] **Phase 5: Code Editor** - Monaco editor with syntax highlighting and paste fidelity (EDIT-01, EDIT-02) ✓ 2026-04-24
 - [ ] **Phase 6: Real-time Preview Pipeline** - Debounced editor→engine→iframe data flow (EDIT-03)
 - [ ] **Phase 7: Multi-Client Parallel Layout** - Side-by-side preview grid for all clients (UX-01)
 - [ ] **Phase 8: Viewport Toggle** - Mobile/desktop width toggle per preview pane (UX-02)
@@ -161,7 +161,7 @@ Note: Phase 5 (Code Editor) has no dependency on Phases 1-4 and may be executed 
 | 2. Naver Simulation Engine | 1/1 | Complete | 2026-04-24 |
 | 3. Gmail Simulation Engine | 1/1 | Complete | 2026-04-24 |
 | 4. Daum/Kakao Simulation Engine | 1/1 | Complete | 2026-04-24 |
-| 5. Code Editor | 0/1 | Planning complete | - |
+| 5. Code Editor | 1/1 | Complete | 2026-04-24 |
 | 6. Real-time Preview Pipeline | 0/TBD | Not started | - |
 | 7. Multi-Client Parallel Layout | 0/TBD | Not started | - |
 | 8. Viewport Toggle | 0/TBD | Not started | - |
