@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback, useRef } from 'react'
+import { useState, useCallback, useRef, type DragEvent, type ChangeEvent } from 'react'
 import dynamic from 'next/dynamic'
 import { inlineCss } from '@/lib/engine/inlineCss'
 import { naverRuleset } from '@/lib/rulesets/naver'
@@ -159,6 +159,29 @@ function SizeCounter({ html }: { html: string }) {
 export default function Home() {
   const [html, setHtml] = useState<string>(DEFAULT_HTML)
   const previousHtmlRef = useRef<string | null>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  const loadFile = useCallback((file: File) => {
+    if (!file.name.match(/\.html?$/i)) return
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      const content = e.target?.result
+      if (typeof content === 'string') setHtml(content)
+    }
+    reader.readAsText(file)
+  }, [])
+
+  const handleDrop = useCallback((e: DragEvent) => {
+    e.preventDefault()
+    const file = e.dataTransfer.files[0]
+    if (file) loadFile(file)
+  }, [loadFile])
+
+  const handleFileSelect = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) loadFile(file)
+    e.target.value = ''
+  }, [loadFile])
 
   const handleInlineCss = useCallback(() => {
     previousHtmlRef.current = html
@@ -197,9 +220,26 @@ export default function Home() {
           >
             Inline CSS
           </button>
+          <button
+            onClick={() => fileInputRef.current?.click()}
+            className="px-3 py-1 text-xs rounded bg-zinc-700 text-zinc-300 hover:bg-zinc-600"
+          >
+            파일 열기
+          </button>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".html,.htm"
+            onChange={handleFileSelect}
+            className="hidden"
+          />
         </div>
       </header>
-      <main className="flex flex-1 min-h-0">
+      <main
+        className="flex flex-1 min-h-0"
+        onDrop={handleDrop}
+        onDragOver={(e) => e.preventDefault()}
+      >
         <div className="flex flex-col w-[45%] min-w-[400px] flex-shrink-0">
           <HtmlEditor value={html} onChange={setHtml} />
         </div>
