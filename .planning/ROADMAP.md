@@ -60,7 +60,9 @@ Plans:
   2. User writes a valid `<style>` block with no disallowed properties — the Gmail preview retains the entire block intact
   3. The Gmail simulation engine has unit tests covering both the block-kill and block-retain code paths
   4. The `applyClientRules(html, gmailRuleset)` function is a pure function consistent with the Phase 1 engine interface
-**Plans**: TBD
+**Plans:** 1 plan
+Plans:
+- [ ] 03-01-PLAN.md — TDD: Gmail conditional style block stripping + engine extension + unit tests
 
 ### Phase 4: Daum/Kakao Simulation Engine
 **Goal**: Users can see a conservative estimated baseline for how Daum/Kakao Mail renders their email
@@ -155,7 +157,7 @@ Note: Phase 5 (Code Editor) has no dependency on Phases 1-4 and may be executed 
 |-------|----------------|--------|-----------|
 | 1. Foundation | 0/1 | Planning complete | - |
 | 2. Naver Simulation Engine | 1/1 | Complete | 2026-04-24 |
-| 3. Gmail Simulation Engine | 0/TBD | Not started | - |
+| 3. Gmail Simulation Engine | 0/1 | Planning complete | - |
 | 4. Daum/Kakao Simulation Engine | 0/TBD | Not started | - |
 | 5. Code Editor | 0/TBD | Not started | - |
 | 6. Real-time Preview Pipeline | 0/TBD | Not started | - |
