@@ -15,7 +15,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Client Simulation
 
-- [ ] **SIM-01**: User can see how their HTML email renders in Naver Mail (strips `<style>`, inline CSS only, blocks `margin` inline)
+- [x] **SIM-01**: User can see how their HTML email renders in Naver Mail (strips `<style>`, inline CSS only, blocks `margin` inline)
 - [ ] **SIM-02**: User can see how their HTML email renders in Daum/Kakao Mail (estimated rules, conservative webmail baseline, labeled as "estimated")
 - [ ] **SIM-03**: User can see how their HTML email renders in Gmail (all-or-nothing `<style>` block stripping behavior)
 
@@ -70,7 +70,7 @@ Which phases cover which requirements. Updated during roadmap creation.
 | EDIT-01 | Phase 5 | Pending |
 | EDIT-02 | Phase 5 | Pending |
 | EDIT-03 | Phase 6 | Pending |
-| SIM-01 | Phase 2 | Pending |
+| SIM-01 | Phase 2 | Complete |
 | SIM-02 | Phase 4 | Pending |
 | SIM-03 | Phase 3 | Pending |
 | UX-01 | Phase 7 | Pending |

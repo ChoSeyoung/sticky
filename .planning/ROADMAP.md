@@ -49,7 +49,7 @@ Plans:
   4. An HTML email with only inline-safe CSS renders identically in the Naver pane and the raw iframe
 **Plans:** 1 plan
 Plans:
-- [ ] 02-01-PLAN.md — TDD: applyClientRules engine function + cheerio + unit tests
+- [x] 02-01-PLAN.md — TDD: applyClientRules engine function + cheerio + unit tests
 
 ### Phase 3: Gmail Simulation Engine
 **Goal**: Users can see how Gmail's all-or-nothing `<style>` block stripping affects their email
@@ -154,7 +154,7 @@ Note: Phase 5 (Code Editor) has no dependency on Phases 1-4 and may be executed 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 0/1 | Planning complete | - |
-| 2. Naver Simulation Engine | 0/1 | Planning complete | - |
+| 2. Naver Simulation Engine | 1/1 | In Progress | - |
 | 3. Gmail Simulation Engine | 0/TBD | Not started | - |
 | 4. Daum/Kakao Simulation Engine | 0/TBD | Not started | - |
 | 5. Code Editor | 0/TBD | Not started | - |
