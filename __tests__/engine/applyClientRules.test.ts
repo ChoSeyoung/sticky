@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { applyClientRules } from '@/lib/engine/applyClientRules'
 import { naverRuleset } from '@/lib/rulesets/naver'
 import { gmailRuleset } from '@/lib/rulesets/gmail'
+import { daumRuleset } from '@/lib/rulesets/daum'
 import type { ClientRuleset } from '@/lib/rulesets/types'
 
 describe('applyClientRules — naverRuleset', () => {
@@ -228,6 +229,98 @@ describe('applyClientRules -- gmailRuleset', () => {
       const input = '<html><head><style>.safe { color: red; }</style></head><body>hi</body></html>'
       const result1 = applyClientRules(input, gmailRuleset)
       const result2 = applyClientRules(input, gmailRuleset)
+      expect(result1).toBe(result2)
+    })
+  })
+})
+
+describe('applyClientRules -- daumRuleset', () => {
+  describe('SIM-02: <style> stripping', () => {
+    it('removes <style> blocks from HTML', () => {
+      const input = '<html><head><style>body { color: red; }</style></head><body>hi</body></html>'
+      const result = applyClientRules(input, daumRuleset)
+      expect(result).not.toContain('<style>')
+      expect(result).toContain('hi')
+    })
+
+    it('removes multiple <style> blocks', () => {
+      const input = '<html><head><style>a{}</style><style>b{}</style></head><body>ok</body></html>'
+      const result = applyClientRules(input, daumRuleset)
+      expect(result).not.toContain('<style>')
+    })
+  })
+
+  describe('SIM-02: element stripping (strippedElements)', () => {
+    it('removes <script> elements', () => {
+      const input = '<html><body><script>alert(1)</script><p>hi</p></body></html>'
+      const result = applyClientRules(input, daumRuleset)
+      expect(result).not.toContain('<script>')
+      expect(result).not.toContain('alert')
+      expect(result).toContain('<p>hi</p>')
+    })
+
+    it('removes <iframe> elements', () => {
+      const input = '<html><body><iframe src="https://example.com"></iframe><p>hi</p></body></html>'
+      const result = applyClientRules(input, daumRuleset)
+      expect(result).not.toContain('<iframe>')
+      expect(result).toContain('<p>hi</p>')
+    })
+
+    it('removes <object> elements', () => {
+      const input = '<html><body><object data="flash.swf"></object><p>hi</p></body></html>'
+      const result = applyClientRules(input, daumRuleset)
+      expect(result).not.toContain('<object>')
+      expect(result).toContain('<p>hi</p>')
+    })
+
+    it('removes <embed> elements', () => {
+      const input = '<html><body><embed src="video.mp4"><p>hi</p></body></html>'
+      const result = applyClientRules(input, daumRuleset)
+      expect(result).not.toContain('<embed>')
+      expect(result).toContain('<p>hi</p>')
+    })
+
+    it('removes script element and its content entirely', () => {
+      const input = '<html><body><script type="text/javascript">var x = 1; console.log(x);</script><p>hi</p></body></html>'
+      const result = applyClientRules(input, daumRuleset)
+      expect(result).not.toContain('console.log')
+      expect(result).not.toContain('var x')
+    })
+  })
+
+  describe('SIM-02: inline style passthrough (no strippedProperties)', () => {
+    it('preserves all inline styles including margin and padding', () => {
+      const input = '<p style="margin: 10px; padding: 5px; color: red;">text</p>'
+      const result = applyClientRules(input, daumRuleset)
+      expect(result).toContain('margin: 10px')
+      expect(result).toContain('padding: 5px')
+      expect(result).toContain('color: red')
+    })
+
+    it('preserves font-family inline style (unlike Naver)', () => {
+      const input = '<p style="font-family: Arial; font-size: 14px;">text</p>'
+      const result = applyClientRules(input, daumRuleset)
+      expect(result).toContain('font-family: Arial')
+      expect(result).toContain('font-size: 14px')
+    })
+  })
+
+  describe('SIM-02: confidence metadata', () => {
+    it('has estimated confidence level', () => {
+      expect(daumRuleset.confidence).toBe('estimated')
+    })
+
+    it('has provenance notes documenting inference basis', () => {
+      expect(daumRuleset.provenance.notes).toBeDefined()
+      expect(daumRuleset.provenance.notes).toContain('No official documentation')
+    })
+  })
+
+  describe('SIM-02: purity', () => {
+    it('is a pure function -- same Daum input produces same output', () => {
+      const input = '<html><body><script>x</script><p style="color: red;">hi</p></body></html>'
+      const result1 = applyClientRules(input, daumRuleset)
+      const result2 = applyClientRules(input, daumRuleset)
       expect(result1).toBe(result2)
     })
   })
