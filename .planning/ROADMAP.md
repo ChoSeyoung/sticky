@@ -33,16 +33,16 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 </details>
 
-### v2.0 프로덕션 확장 (In Progress)
+### v2.0 프로덕션 확장 (Complete)
 
-- [ ] **Phase 11: 레이아웃 개선** - 에디터 뷰포트 꽉채움, 프리뷰 수평 배치 + 수평 스크롤
-- [ ] **Phase 12: CSS 호환성 경고 패널** - 클라이언트별 비호환 CSS 속성 경고 표시
-- [ ] **Phase 13: Inline CSS 자동 변환** - `<style>` 블록을 inline style로 자동 변환
-- [ ] **Phase 14: Gmail 102KB 카운터** - HTML 크기 실시간 표시 및 초과 경고
-- [ ] **Phase 15: HTML 파일 업로드** - 드래그앤드롭 / 파일 선택으로 HTML 로드
-- [ ] **Phase 16: Outlook 시뮬레이션** - Outlook Classic (Word) + New (Chromium) 엔진 시뮬레이션
-- [ ] **Phase 17: 광고 수익화** - AdSense 기반 비침해적 광고 배치
-- [ ] **Phase 18: v2 런칭 준비** - 최종 QA, 크로스브라우저 검증, 성능 최적화
+- [x] **Phase 11: 레이아웃 개선** - 에디터 뷰포트 꽉채움, 프리뷰 수평 배치 + 수평 스크롤 ✓ 2026-04-24
+- [x] **Phase 12: CSS 호환성 경고 패널** - 클라이언트별 비호환 CSS 속성 경고 표시 ✓ 2026-04-24
+- [x] **Phase 13: Inline CSS 자동 변환** - `<style>` 블록을 inline style로 자동 변환 ✓ 2026-04-24
+- [x] **Phase 14: Gmail 102KB 카운터** - HTML 크기 실시간 표시 및 초과 경고 ✓ 2026-04-24
+- [x] **Phase 15: HTML 파일 업로드** - 드래그앤드롭 / 파일 선택으로 HTML 로드 ✓ 2026-04-24
+- [x] **Phase 16: Outlook 시뮬레이션** - Outlook Classic (Word) + New (Chromium) 엔진 시뮬레이션 ✓ 2026-04-24
+- [x] **Phase 17: 광고 수익화** - AdSense 기반 비침해적 광고 배치 ✓ 2026-04-24
+- [x] **Phase 18: v2 런칭 준비** - 최종 QA, 크로스브라우저 검증, 성능 최적화 ✓ 2026-04-24
 
 ## Phase Details
 
