@@ -13,7 +13,7 @@ Sticky is built in three layers: typed client data → pure-function simulation 
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [ ] **Phase 1: Foundation** - TypeScript types, client ruleset data model, provenance fields
-- [ ] **Phase 2: Naver Simulation Engine** - Pure-function CSS transform for Naver Mail (SIM-01)
+- [x] **Phase 2: Naver Simulation Engine** - Pure-function CSS transform for Naver Mail (SIM-01) ✓ 2026-04-24
 - [ ] **Phase 3: Gmail Simulation Engine** - All-or-nothing `<style>` block behavior (SIM-03)
 - [ ] **Phase 4: Daum/Kakao Simulation Engine** - Conservative estimated baseline (SIM-02)
 - [ ] **Phase 5: Code Editor** - Monaco editor with syntax highlighting and paste fidelity (EDIT-01, EDIT-02)
@@ -154,7 +154,7 @@ Note: Phase 5 (Code Editor) has no dependency on Phases 1-4 and may be executed 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 0/1 | Planning complete | - |
-| 2. Naver Simulation Engine | 1/1 | In Progress | - |
+| 2. Naver Simulation Engine | 1/1 | Complete | 2026-04-24 |
 | 3. Gmail Simulation Engine | 0/TBD | Not started | - |
 | 4. Daum/Kakao Simulation Engine | 0/TBD | Not started | - |
 | 5. Code Editor | 0/TBD | Not started | - |
