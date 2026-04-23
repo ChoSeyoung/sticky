@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useCallback, useRef } from 'react'
 import dynamic from 'next/dynamic'
+import { inlineCss } from '@/lib/engine/inlineCss'
 import { naverRuleset } from '@/lib/rulesets/naver'
 import { gmailRuleset } from '@/lib/rulesets/gmail'
 import { daumRuleset } from '@/lib/rulesets/daum'
@@ -144,11 +145,45 @@ const DEFAULT_HTML = `<!DOCTYPE html>
 
 export default function Home() {
   const [html, setHtml] = useState<string>(DEFAULT_HTML)
+  const previousHtmlRef = useRef<string | null>(null)
+
+  const handleInlineCss = useCallback(() => {
+    previousHtmlRef.current = html
+    try {
+      const inlined = inlineCss(html)
+      setHtml(inlined)
+    } catch {
+      // juice may fail on malformed HTML — keep original
+    }
+  }, [html])
+
+  const handleUndoInline = useCallback(() => {
+    if (previousHtmlRef.current !== null) {
+      setHtml(previousHtmlRef.current)
+      previousHtmlRef.current = null
+    }
+  }, [])
 
   return (
     <div className="flex flex-col h-full">
-      <header className="flex items-center h-12 px-4 bg-zinc-900 border-b border-zinc-700">
+      <header className="flex items-center justify-between h-12 px-4 bg-zinc-900 border-b border-zinc-700">
         <h1 className="text-sm font-semibold text-zinc-300">Sticky — HTML Email Preview</h1>
+        <div className="flex items-center gap-2">
+          {previousHtmlRef.current !== null && (
+            <button
+              onClick={handleUndoInline}
+              className="px-3 py-1 text-xs rounded bg-zinc-700 text-zinc-300 hover:bg-zinc-600"
+            >
+              Undo Inline
+            </button>
+          )}
+          <button
+            onClick={handleInlineCss}
+            className="px-3 py-1 text-xs rounded bg-blue-600 text-white hover:bg-blue-500"
+          >
+            Inline CSS
+          </button>
+        </div>
       </header>
       <main className="flex flex-1 min-h-0">
         <div className="flex flex-col w-[45%] min-w-[400px] flex-shrink-0">
