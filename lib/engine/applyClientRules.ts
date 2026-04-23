@@ -17,6 +17,7 @@ function filterInlineStyle(styleValue: string, blocked: ReadonlyArray<string>): 
 }
 
 export function applyClientRules(html: string, ruleset: ClientRuleset): string {
+  // @ts-expect-error — decodeEntities is a valid htmlparser2 option but not in CheerioOptions type
   const $ = cheerio.load(html, { decodeEntities: false })
 
   // Conditional <style> block processing
@@ -24,7 +25,7 @@ export function applyClientRules(html: string, ruleset: ClientRuleset): string {
     const patterns = ruleset.styleBlockBehavior.disallowedPatterns.map(
       p => new RegExp(p, 'i')
     )
-    const toRemove: cheerio.Cheerio<cheerio.Element>[] = []
+    const toRemove: ReturnType<typeof $>[] = []
     $('style').each((_, el) => {
       const cssText = $(el).text()
       if (patterns.some(re => re.test(cssText))) {

@@ -18,7 +18,6 @@ export default function HtmlEditor({ value, onChange }: HtmlEditorProps) {
         wordWrap: 'on',
         minimap: { enabled: false },
         autoClosingBrackets: 'always',
-        autoClosingTags: true,
         formatOnPaste: false,
         formatOnType: false,
         renderWhitespace: 'selection',
