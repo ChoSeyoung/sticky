@@ -13,8 +13,13 @@ export interface Provenance {
   notes?: string
 }
 
+export interface StyleBlockBehavior {
+  disallowedPatterns: string[]
+}
+
 export interface ClientRuleset {
   stripHeadStyles: boolean
+  styleBlockBehavior?: StyleBlockBehavior
   allowedInlineProperties: string[] | null
   strippedProperties: string[]
   strippedElements: string[]

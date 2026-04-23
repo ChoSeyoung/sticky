@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { applyClientRules } from '@/lib/engine/applyClientRules'
 import { naverRuleset } from '@/lib/rulesets/naver'
+import { gmailRuleset } from '@/lib/rulesets/gmail'
 import type { ClientRuleset } from '@/lib/rulesets/types'
 
 describe('applyClientRules — naverRuleset', () => {
@@ -128,6 +129,106 @@ describe('applyClientRules — naverRuleset', () => {
       const result = applyClientRules(input, customRuleset)
       expect(result).not.toContain('<script>')
       expect(result).toContain('<p>hi</p>')
+    })
+  })
+})
+
+describe('applyClientRules -- gmailRuleset', () => {
+  describe('SIM-03: block-kill path (disallowed CSS triggers full <style> removal)', () => {
+    it('strips entire <style> block when background-image url() is present', () => {
+      const input = '<html><head><style>.hero { background-image: url("bg.jpg"); color: red; }</style></head><body>hi</body></html>'
+      const result = applyClientRules(input, gmailRuleset)
+      expect(result).not.toContain('<style>')
+      expect(result).not.toContain('color: red')
+      expect(result).toContain('hi')
+    })
+
+    it('strips block with @import rule', () => {
+      const input = '<html><head><style>@import url("fonts.css"); .text { color: red; }</style></head><body>hi</body></html>'
+      const result = applyClientRules(input, gmailRuleset)
+      expect(result).not.toContain('<style>')
+    })
+
+    it('strips block with position: fixed', () => {
+      const input = '<html><head><style>.overlay { position: fixed; top: 0; }</style></head><body>hi</body></html>'
+      const result = applyClientRules(input, gmailRuleset)
+      expect(result).not.toContain('<style>')
+    })
+
+    it('strips block with position: absolute', () => {
+      const input = '<html><head><style>.popup { position: absolute; left: 0; }</style></head><body>hi</body></html>'
+      const result = applyClientRules(input, gmailRuleset)
+      expect(result).not.toContain('<style>')
+    })
+
+    it('strips block with background shorthand containing url()', () => {
+      const input = '<html><head><style>.bg { background: #fff url("bg.jpg") no-repeat; }</style></head><body>hi</body></html>'
+      const result = applyClientRules(input, gmailRuleset)
+      expect(result).not.toContain('<style>')
+    })
+
+    it('strips block with expression()', () => {
+      const input = '<html><head><style>.x { width: expression(document.body.clientWidth); }</style></head><body>hi</body></html>'
+      const result = applyClientRules(input, gmailRuleset)
+      expect(result).not.toContain('<style>')
+    })
+
+    it('strips block with @font-face', () => {
+      const input = '<html><head><style>@font-face { font-family: "Custom"; src: url("font.woff2"); }</style></head><body>hi</body></html>'
+      const result = applyClientRules(input, gmailRuleset)
+      expect(result).not.toContain('<style>')
+    })
+  })
+
+  describe('SIM-03: block-retain path (only allowed CSS, block survives)', () => {
+    it('retains <style> block when only allowed properties are used', () => {
+      const input = '<html><head><style>.text { color: red; font-size: 14px; }</style></head><body>hi</body></html>'
+      const result = applyClientRules(input, gmailRuleset)
+      expect(result).toContain('<style>')
+      expect(result).toContain('color: red')
+      expect(result).toContain('font-size: 14px')
+    })
+
+    it('retains block with simple text-decoration', () => {
+      const input = '<html><head><style>.link { text-decoration: underline; }</style></head><body>hi</body></html>'
+      const result = applyClientRules(input, gmailRuleset)
+      expect(result).toContain('<style>')
+      expect(result).toContain('text-decoration: underline')
+    })
+  })
+
+  describe('SIM-03: multiple <style> blocks (independent evaluation)', () => {
+    it('retains safe block and removes block with disallowed CSS', () => {
+      const input = '<html><head><style>.safe { color: red; }</style><style>.bad { background-image: url("x"); }</style></head><body>hi</body></html>'
+      const result = applyClientRules(input, gmailRuleset)
+      expect(result).toContain('color: red')
+      expect(result).not.toContain('background-image')
+    })
+  })
+
+  describe('SIM-03: case insensitivity', () => {
+    it('matches disallowed patterns case-insensitively', () => {
+      const input = '<html><head><style>.x { BACKGROUND-IMAGE: URL("x.jpg"); }</style></head><body>hi</body></html>'
+      const result = applyClientRules(input, gmailRuleset)
+      expect(result).not.toContain('<style>')
+    })
+  })
+
+  describe('SIM-03: backward compatibility with Naver', () => {
+    it('naverRuleset still strips ALL <style> blocks unconditionally', () => {
+      const input = '<html><head><style>.safe { color: red; }</style></head><body>hi</body></html>'
+      const result = applyClientRules(input, naverRuleset)
+      expect(result).not.toContain('<style>')
+      expect(result).not.toContain('color: red')
+    })
+  })
+
+  describe('SIM-03: purity', () => {
+    it('is a pure function -- same Gmail input produces same output', () => {
+      const input = '<html><head><style>.safe { color: red; }</style></head><body>hi</body></html>'
+      const result1 = applyClientRules(input, gmailRuleset)
+      const result2 = applyClientRules(input, gmailRuleset)
+      expect(result1).toBe(result2)
     })
   })
 })
