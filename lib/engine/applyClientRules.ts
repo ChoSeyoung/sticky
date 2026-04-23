@@ -19,8 +19,20 @@ function filterInlineStyle(styleValue: string, blocked: ReadonlyArray<string>): 
 export function applyClientRules(html: string, ruleset: ClientRuleset): string {
   const $ = cheerio.load(html, { decodeEntities: false })
 
-  // Strip <style> elements
-  if (ruleset.stripHeadStyles) {
+  // Conditional <style> block processing
+  if (ruleset.styleBlockBehavior) {
+    const patterns = ruleset.styleBlockBehavior.disallowedPatterns.map(
+      p => new RegExp(p, 'i')
+    )
+    const toRemove: cheerio.Cheerio<cheerio.Element>[] = []
+    $('style').each((_, el) => {
+      const cssText = $(el).text()
+      if (patterns.some(re => re.test(cssText))) {
+        toRemove.push($(el))
+      }
+    })
+    toRemove.forEach(el => el.remove())
+  } else if (ruleset.stripHeadStyles) {
     $('style').remove()
   }
 
