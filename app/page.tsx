@@ -6,6 +6,8 @@ import { inlineCss } from '@/lib/engine/inlineCss'
 import { naverRuleset } from '@/lib/rulesets/naver'
 import { gmailRuleset } from '@/lib/rulesets/gmail'
 import { daumRuleset } from '@/lib/rulesets/daum'
+import { outlookClassicRuleset } from '@/lib/rulesets/outlook-classic'
+import { outlookNewRuleset } from '@/lib/rulesets/outlook-new'
 
 const HtmlEditor = dynamic(() => import('@/app/components/HtmlEditor'), {
   ssr: false,
@@ -32,6 +34,8 @@ const WarningPanel = dynamic(() => import('@/app/components/WarningPanel'), {
 const CLIENTS = [
   { name: 'Naver Mail', ruleset: naverRuleset },
   { name: 'Gmail', ruleset: gmailRuleset },
+  { name: 'Outlook Classic', ruleset: outlookClassicRuleset },
+  { name: 'Outlook New', ruleset: outlookNewRuleset },
   { name: 'Daum/Kakao Mail', ruleset: daumRuleset },
 ] as const
 

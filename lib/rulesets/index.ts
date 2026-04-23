@@ -1,4 +1,6 @@
-export type { Confidence, ProvenanceMethod, Provenance, ClientRuleset } from './types'
+export type { Confidence, ProvenanceMethod, Provenance, ClientRuleset, StyleBlockBehavior } from './types'
 export { naverRuleset } from './naver'
 export { gmailRuleset } from './gmail'
 export { daumRuleset } from './daum'
+export { outlookClassicRuleset } from './outlook-classic'
+export { outlookNewRuleset } from './outlook-new'
