@@ -3,9 +3,7 @@
 **Defined:** 2026-04-23
 **Core Value:** 각 이메일 클라이언트의 CSS 제한사항을 정확하게 시뮬레이션하여 실제 클라이언트에서 보이는 것과 거의 동일한 프리뷰를 제공하는 것.
 
-## v1 Requirements
-
-Requirements for initial release. Each maps to roadmap phases.
+## v1 Requirements (Completed)
 
 ### Editor
 
@@ -26,61 +24,75 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ## v2 Requirements
 
-Deferred to future release. Tracked but not in current roadmap.
+### 레이아웃
 
-### Outlook Simulation
+- [ ] **LAYOUT-01**: 에디터가 뷰포트 높이를 꽉 채우고 프리뷰 영역과 수평으로 분할된다
+- [ ] **LAYOUT-02**: 프리뷰 패널들이 수평으로 배치되며 프리뷰 영역만 수평 스크롤된다 (에디터는 고정)
 
-- **OUT-01**: User can see how their HTML renders in Outlook Classic (Word engine)
-- **OUT-02**: User can see how their HTML renders in Outlook New (Chromium engine)
+### CSS 분석
 
-### Enhanced UX
+- [ ] **CSS-01**: 사용자가 작성한 HTML에서 각 클라이언트별 호환되지 않는 CSS 속성을 경고 패널에 표시한다
+- [ ] **CSS-02**: 사용자가 `<style>` 블록의 CSS를 자동으로 inline style로 변환할 수 있다
+- [ ] **CSS-03**: Gmail의 102KB 제한에 대해 현재 HTML 크기를 표시하고 초과 시 경고한다
 
-- **ENH-01**: User sees simulation disclaimer per preview pane
-- **ENH-02**: User sees confidence badge (HIGH/MEDIUM/LOW) per client
-- **ENH-03**: User sees Korean-specific CSS compatibility warnings
-- **ENH-04**: User can auto-fix inline CSS for clients that strip `<style>` tags
-- **ENH-05**: User can toggle dark mode preview per client
-- **ENH-06**: User sees preheader/subject line preview above email body
-- **ENH-07**: User sees Gmail 102KB size counter with warning
+### Outlook 시뮬레이션
 
-### Collaboration
+- [ ] **OUT-01**: Outlook Classic (Word 엔진) 렌더링 시뮬레이션을 제공한다
+- [ ] **OUT-02**: Outlook New (Chromium 엔진) 렌더링 시뮬레이션을 제공한다
+
+### 입력 확장
+
+- [ ] **INPUT-01**: 사용자가 HTML 파일을 드래그앤드롭 또는 파일 선택으로 에디터에 로드할 수 있다
+
+### 수익화
+
+- [ ] **AD-01**: 페이지에 광고 영역이 표시되며 사용자 경험을 방해하지 않는 위치에 배치된다
+
+## v3 Requirements (Deferred)
 
 - **COL-01**: User can share preview via URL
 - **COL-02**: User can copy client-specific inlined HTML for export
+- **ENH-05**: User can toggle dark mode preview per client
+- **ENH-06**: User sees preheader/subject line preview above email body
 
 ## Out of Scope
 
 | Feature | Reason |
 |---------|--------|
-| Real screenshot capture (send test email + capture) | Infrastructure complexity, breaks static deployment constraint |
-| User accounts / login | Adds auth complexity; tool should be instantly usable |
-| File upload (HTML/EML/MJML) | v1 focuses on code editor input only |
-| Team collaboration / comments | Requires real-time sync infrastructure |
+| Real screenshot capture | Infrastructure complexity, breaks static deployment constraint |
+| User accounts / login | Tool should be instantly usable without auth |
+| Mobile app | Web-first approach |
 | Spam score checking | Requires server-side processing |
 | Send test email to real inbox | SMTP infrastructure out of scope |
 | AI-generated email HTML | Distraction from core preview value |
-| Mobile app | Web-first approach |
 
 ## Traceability
 
-Which phases cover which requirements. Updated during roadmap creation.
-
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| EDIT-01 | Phase 5 | Pending |
-| EDIT-02 | Phase 5 | Pending |
-| EDIT-03 | Phase 6 | Pending |
-| SIM-01 | Phase 2 | Complete |
-| SIM-02 | Phase 4 | Pending |
-| SIM-03 | Phase 3 | Pending |
-| UX-01 | Phase 7 | Pending |
-| UX-02 | Phase 8 | Pending |
+| EDIT-01 | Phase 5 (v1) | Complete |
+| EDIT-02 | Phase 5 (v1) | Complete |
+| EDIT-03 | Phase 6 (v1) | Complete |
+| SIM-01 | Phase 2 (v1) | Complete |
+| SIM-02 | Phase 4 (v1) | Complete |
+| SIM-03 | Phase 3 (v1) | Complete |
+| UX-01 | Phase 7 (v1) | Complete |
+| UX-02 | Phase 8 (v1) | Complete |
+| LAYOUT-01 | TBD | Pending |
+| LAYOUT-02 | TBD | Pending |
+| CSS-01 | TBD | Pending |
+| CSS-02 | TBD | Pending |
+| CSS-03 | TBD | Pending |
+| OUT-01 | TBD | Pending |
+| OUT-02 | TBD | Pending |
+| INPUT-01 | TBD | Pending |
+| AD-01 | TBD | Pending |
 
 **Coverage:**
-- v1 requirements: 8 total
-- Mapped to phases: 8
-- Unmapped: 0 ✓
+- v1 requirements: 8 total — 8 complete ✓
+- v2 requirements: 9 total
+- Mapped to phases: 0 (pending roadmap)
 
 ---
 *Requirements defined: 2026-04-23*
-*Last updated: 2026-04-23 after roadmap creation*
+*Last updated: 2026-04-24 — v2.0 requirements added*
