@@ -34,7 +34,9 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. Naver, Gmail, and Daum/Kakao ruleset files exist as typed constants and import cleanly
   3. Daum/Kakao ruleset has `confidence: "estimated"` and a `provenance` field documenting the inference basis
   4. A ruleset schema test asserts all required fields are present for each defined client
-**Plans**: TBD
+**Plans:** 1 plan
+Plans:
+- [ ] 01-01-PLAN.md — Type contracts, client rulesets, Vitest setup, and schema test
 
 ### Phase 2: Naver Simulation Engine
 **Goal**: Users can see accurately how their HTML email renders under Naver Mail's CSS restrictions
@@ -149,7 +151,7 @@ Note: Phase 5 (Code Editor) has no dependency on Phases 1-4 and may be executed 
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/TBD | Not started | - |
+| 1. Foundation | 0/1 | Planning complete | - |
 | 2. Naver Simulation Engine | 0/TBD | Not started | - |
 | 3. Gmail Simulation Engine | 0/TBD | Not started | - |
 | 4. Daum/Kakao Simulation Engine | 0/TBD | Not started | - |
