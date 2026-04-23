@@ -12,6 +12,15 @@ const HtmlEditor = dynamic(() => import('@/app/components/HtmlEditor'), {
   ),
 })
 
+const PreviewPane = dynamic(() => import('@/app/components/PreviewPane'), {
+  ssr: false,
+  loading: () => (
+    <div className="flex flex-1 items-center justify-center bg-white text-zinc-400">
+      Loading preview...
+    </div>
+  ),
+})
+
 const DEFAULT_HTML = `<!DOCTYPE html>
 <html>
 <head>
@@ -37,7 +46,12 @@ export default function Home() {
         <h1 className="text-sm font-semibold text-zinc-300">Sticky — HTML Email Editor</h1>
       </header>
       <main className="flex flex-1 min-h-0">
-        <HtmlEditor value={html} onChange={setHtml} />
+        <div className="flex flex-col w-1/2 min-w-0">
+          <HtmlEditor value={html} onChange={setHtml} />
+        </div>
+        <div className="flex flex-col w-1/2 min-w-0 border-l border-zinc-700">
+          <PreviewPane html={html} />
+        </div>
       </main>
     </div>
   )
