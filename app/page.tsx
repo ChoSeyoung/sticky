@@ -31,6 +31,10 @@ const WarningPanel = dynamic(() => import('@/app/components/WarningPanel'), {
   ssr: false,
 })
 
+const AdBanner = dynamic(() => import('@/app/components/AdBanner'), {
+  ssr: false,
+})
+
 const CLIENTS = [
   { name: 'Naver Mail', ruleset: naverRuleset },
   { name: 'Gmail', ruleset: gmailRuleset },
@@ -239,6 +243,7 @@ export default function Home() {
           />
         </div>
       </header>
+      <AdBanner slot="1234567890" />
       <main
         className="flex flex-1 min-h-0"
         onDrop={handleDrop}
