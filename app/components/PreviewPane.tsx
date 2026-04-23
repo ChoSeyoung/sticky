@@ -34,7 +34,7 @@ export default function PreviewPane({ html, clientName, ruleset }: PreviewPanePr
   }, [debouncedHtml, ruleset])
 
   return (
-    <div className="flex flex-col flex-1 min-h-0">
+    <div className="flex flex-col min-w-[420px] h-full flex-shrink-0 border-r border-zinc-200">
       <div className="flex items-center justify-between h-8 px-3 bg-zinc-100 border-b border-zinc-200">
         <div className="flex items-center gap-2">
           <span className="text-xs font-medium text-zinc-500">{clientName}</span>

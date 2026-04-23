@@ -147,10 +147,10 @@ export default function Home() {
         <h1 className="text-sm font-semibold text-zinc-300">Sticky — HTML Email Preview</h1>
       </header>
       <main className="flex flex-1 min-h-0">
-        <div className="flex flex-col w-1/2 min-w-0">
+        <div className="flex flex-col w-[45%] min-w-[400px] flex-shrink-0">
           <HtmlEditor value={html} onChange={setHtml} />
         </div>
-        <div className="flex flex-col w-1/2 min-w-0 border-l border-zinc-700">
+        <div className="flex flex-row flex-1 min-w-0 overflow-x-auto border-l border-zinc-700">
           {CLIENTS.map((client) => (
             <PreviewPane
               key={client.name}
