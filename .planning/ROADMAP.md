@@ -98,7 +98,9 @@ Plans:
   2. User pastes a complete HTML email — all active preview panes update without a page reload
   3. The preview renders inside a sandboxed `<iframe srcdoc>` (verified via DevTools sandbox attribute)
   4. Rapid successive edits do not trigger multiple simultaneous renders — only the final state after debounce fires
-**Plans**: TBD
+**Plans:** 1 plan
+Plans:
+- [ ] 06-01-PLAN.md — Debounced preview pipeline: useDebounce hook, PreviewPane with iframe srcdoc, editor+preview split layout
 **UI hint**: yes
 
 ### Phase 7: Multi-Client Parallel Layout
@@ -162,7 +164,7 @@ Note: Phase 5 (Code Editor) has no dependency on Phases 1-4 and may be executed 
 | 3. Gmail Simulation Engine | 1/1 | Complete | 2026-04-24 |
 | 4. Daum/Kakao Simulation Engine | 1/1 | Complete | 2026-04-24 |
 | 5. Code Editor | 1/1 | Complete | 2026-04-24 |
-| 6. Real-time Preview Pipeline | 0/TBD | Not started | - |
+| 6. Real-time Preview Pipeline | 0/1 | Planning complete | - |
 | 7. Multi-Client Parallel Layout | 0/TBD | Not started | - |
 | 8. Viewport Toggle | 0/TBD | Not started | - |
 | 9. Security & Sandbox Hardening | 0/TBD | Not started | - |
