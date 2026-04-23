@@ -17,7 +17,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **SIM-01**: User can see how their HTML email renders in Naver Mail (strips `<style>`, inline CSS only, blocks `margin` inline)
 - [ ] **SIM-02**: User can see how their HTML email renders in Daum/Kakao Mail (estimated rules, conservative webmail baseline, labeled as "estimated")
-- [ ] **SIM-03**: User can see how their HTML email renders in Gmail (all-or-nothing `<style>` block stripping behavior)
+- [x] **SIM-03**: User can see how their HTML email renders in Gmail (all-or-nothing `<style>` block stripping behavior)
 
 ### Layout & UX
 
