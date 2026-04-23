@@ -143,6 +143,19 @@ const DEFAULT_HTML = `<!DOCTYPE html>
 </body>
 </html>`
 
+const GMAIL_LIMIT_KB = 102
+
+function SizeCounter({ html }: { html: string }) {
+  const bytes = new TextEncoder().encode(html).length
+  const kb = bytes / 1024
+  const overLimit = kb > GMAIL_LIMIT_KB
+  return (
+    <span className={`text-xs font-mono ${overLimit ? 'text-red-400' : 'text-zinc-400'}`}>
+      {kb.toFixed(1)}KB{overLimit ? ' ⚠ Gmail 102KB 초과' : ''}
+    </span>
+  )
+}
+
 export default function Home() {
   const [html, setHtml] = useState<string>(DEFAULT_HTML)
   const previousHtmlRef = useRef<string | null>(null)
@@ -168,7 +181,8 @@ export default function Home() {
     <div className="flex flex-col h-full">
       <header className="flex items-center justify-between h-12 px-4 bg-zinc-900 border-b border-zinc-700">
         <h1 className="text-sm font-semibold text-zinc-300">Sticky — HTML Email Preview</h1>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
+          <SizeCounter html={html} />
           {previousHtmlRef.current !== null && (
             <button
               onClick={handleUndoInline}
