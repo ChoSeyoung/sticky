@@ -400,16 +400,16 @@ describe('applyClientRules — naverRuleset', () => {
 
 ---
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Are margin, padding, and font-family actually stripped from Naver inline styles?**
    - What we know: EmailOnAcid says Naver supports "all the usual spacing methods" inline. The current naver.ts list came from webmail inspection (provenance notes say approximate).
    - What's unclear: Whether there are specific contexts (certain HTML tags, email types) where Naver strips these, or if the block list is overly conservative.
-   - Recommendation: Per D-04, start with the current list. The engine is data-driven, so correcting the list requires only editing `naver.ts`. Flag this to the user as a known approximation in the Phase 10 confidence badge (already accounted for by `confidence: 'high'` being in the ruleset — may want to revisit).
+   - RESOLVED: Per locked decision D-04, start with the current list `['margin', 'padding', 'font-family']`. The engine is data-driven — correcting the list requires only editing `naver.ts`, no code change. Flag as known approximation in Phase 10 confidence badge.
 
 2. **Does Naver strip `<style>` from `<body>` as well as `<head>`?**
    - What we know: Most sources describe stripping `<style>` "from the header." It is common for webmail to strip all `<style>` regardless of position.
-   - Recommendation: `$('style').remove()` removes all `<style>` elements everywhere — the safer default. If testing reveals body `<style>` is preserved, scope with `$('head > style').remove()`.
+   - RESOLVED: `$('style').remove()` removes all `<style>` elements regardless of position — the safer default. If live testing reveals body `<style>` is preserved, scope with `$('head > style').remove()`.
 
 ---
 
