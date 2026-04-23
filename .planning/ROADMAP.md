@@ -77,14 +77,16 @@ Plans:
 
 ### Phase 5: Code Editor
 **Goal**: Users can write and paste HTML email code into a syntax-highlighted editor without content being mangled
-**Depends on**: Nothing (can run in parallel with Phases 1–4)
+**Depends on**: Nothing (can run in parallel with Phases 1-4)
 **Requirements**: EDIT-01, EDIT-02
 **Success Criteria** (what must be TRUE):
   1. User can open the app and see a Monaco editor with HTML syntax highlighting active
   2. User pastes an HTML email (including multi-line attributes, special characters, and `<style>` blocks) — the content is preserved exactly, character for character
   3. The editor renders without SSR errors (dynamic import bypass applied correctly)
   4. The editor accepts HTML IntelliSense and does not mangle indentation or encoding on paste
-**Plans**: TBD
+**Plans:** 1 plan
+Plans:
+- [ ] 05-01-PLAN.md — Monaco editor with HTML syntax highlighting, paste fidelity, and dynamic import
 **UI hint**: yes
 
 ### Phase 6: Real-time Preview Pipeline
@@ -159,7 +161,7 @@ Note: Phase 5 (Code Editor) has no dependency on Phases 1-4 and may be executed 
 | 2. Naver Simulation Engine | 1/1 | Complete | 2026-04-24 |
 | 3. Gmail Simulation Engine | 1/1 | Complete | 2026-04-24 |
 | 4. Daum/Kakao Simulation Engine | 1/1 | Complete | 2026-04-24 |
-| 5. Code Editor | 0/TBD | Not started | - |
+| 5. Code Editor | 0/1 | Planning complete | - |
 | 6. Real-time Preview Pipeline | 0/TBD | Not started | - |
 | 7. Multi-Client Parallel Layout | 0/TBD | Not started | - |
 | 8. Viewport Toggle | 0/TBD | Not started | - |
