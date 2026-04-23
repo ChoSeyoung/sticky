@@ -78,21 +78,21 @@
 | SIM-03 | Phase 3 (v1) | Complete |
 | UX-01 | Phase 7 (v1) | Complete |
 | UX-02 | Phase 8 (v1) | Complete |
-| LAYOUT-01 | TBD | Pending |
-| LAYOUT-02 | TBD | Pending |
-| CSS-01 | TBD | Pending |
-| CSS-02 | TBD | Pending |
-| CSS-03 | TBD | Pending |
-| OUT-01 | TBD | Pending |
-| OUT-02 | TBD | Pending |
-| INPUT-01 | TBD | Pending |
-| AD-01 | TBD | Pending |
+| LAYOUT-01 | Phase 11 (v2) | Pending |
+| LAYOUT-02 | Phase 11 (v2) | Pending |
+| CSS-01 | Phase 12 (v2) | Pending |
+| CSS-02 | Phase 13 (v2) | Pending |
+| CSS-03 | Phase 14 (v2) | Pending |
+| INPUT-01 | Phase 15 (v2) | Pending |
+| OUT-01 | Phase 16 (v2) | Pending |
+| OUT-02 | Phase 16 (v2) | Pending |
+| AD-01 | Phase 17 (v2) | Pending |
 
 **Coverage:**
-- v1 requirements: 8 total — 8 complete ✓
-- v2 requirements: 9 total
-- Mapped to phases: 0 (pending roadmap)
+- v1 requirements: 8 total — 8 complete
+- v2 requirements: 9 total — 9 mapped to phases
+- Mapped to phases: 9/9 (100%)
 
 ---
 *Requirements defined: 2026-04-23*
-*Last updated: 2026-04-24 — v2.0 requirements added*
+*Last updated: 2026-04-24 — v2.0 traceability mapped (Phases 11-18)*

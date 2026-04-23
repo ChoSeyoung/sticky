@@ -4,6 +4,11 @@
 
 Sticky is built in three layers: typed client data → pure-function simulation engine → React UI. The roadmap follows that order. Foundation and client rulesets come first because simulation accuracy is the core value — wrong data equals a wrong tool. The engine is proven in isolation before any UI exists. The editor and real-time pipeline are wired together next, validated on a single client. The multi-client layout fans out from that proven pipeline. Viewport toggles, security hardening, and UX polish complete the v1 product.
 
+## Milestones
+
+- ✅ **v1.0 MVP** - Phases 1-10 (shipped 2026-04-24)
+- 🚧 **v2.0 프로덕션 확장** - Phases 11-18 (in progress)
+
 ## Phases
 
 **Phase Numbering:**
@@ -12,7 +17,10 @@ Sticky is built in three layers: typed client data → pure-function simulation 
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation** - TypeScript types, client ruleset data model, provenance fields
+<details>
+<summary>v1.0 MVP (Phases 1-10) - SHIPPED 2026-04-24</summary>
+
+- [x] **Phase 1: Foundation** - TypeScript types, client ruleset data model, provenance fields
 - [x] **Phase 2: Naver Simulation Engine** - Pure-function CSS transform for Naver Mail (SIM-01) ✓ 2026-04-24
 - [x] **Phase 3: Gmail Simulation Engine** - All-or-nothing `<style>` block behavior (SIM-03) ✓ 2026-04-24
 - [x] **Phase 4: Daum/Kakao Simulation Engine** - Conservative estimated baseline (SIM-02) ✓ 2026-04-24
@@ -23,7 +31,23 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 9: Security & Sandbox Hardening** - iframe CSP, sandbox attributes, frame-wrapper ✓ 2026-04-24
 - [x] **Phase 10: UX Polish & Launch Readiness** - Client labels, disclaimers, confidence indicators ✓ 2026-04-24
 
+</details>
+
+### v2.0 프로덕션 확장 (In Progress)
+
+- [ ] **Phase 11: 레이아웃 개선** - 에디터 뷰포트 꽉채움, 프리뷰 수평 배치 + 수평 스크롤
+- [ ] **Phase 12: CSS 호환성 경고 패널** - 클라이언트별 비호환 CSS 속성 경고 표시
+- [ ] **Phase 13: Inline CSS 자동 변환** - `<style>` 블록을 inline style로 자동 변환
+- [ ] **Phase 14: Gmail 102KB 카운터** - HTML 크기 실시간 표시 및 초과 경고
+- [ ] **Phase 15: HTML 파일 업로드** - 드래그앤드롭 / 파일 선택으로 HTML 로드
+- [ ] **Phase 16: Outlook 시뮬레이션** - Outlook Classic (Word) + New (Chromium) 엔진 시뮬레이션
+- [ ] **Phase 17: 광고 수익화** - AdSense 기반 비침해적 광고 배치
+- [ ] **Phase 18: v2 런칭 준비** - 최종 QA, 크로스브라우저 검증, 성능 최적화
+
 ## Phase Details
+
+<details>
+<summary>v1.0 MVP Phase Details (Phases 1-10)</summary>
 
 ### Phase 1: Foundation
 **Goal**: The typed data model and client ruleset infrastructure that every simulation phase builds on
@@ -62,7 +86,7 @@ Plans:
   4. The `applyClientRules(html, gmailRuleset)` function is a pure function consistent with the Phase 1 engine interface
 **Plans:** 1 plan
 Plans:
-- [ ] 03-01-PLAN.md — TDD: Gmail conditional style block stripping + engine extension + unit tests
+- [x] 03-01-PLAN.md — TDD: Gmail conditional style block stripping + engine extension + unit tests
 
 ### Phase 4: Daum/Kakao Simulation Engine
 **Goal**: Users can see a conservative estimated baseline for how Daum/Kakao Mail renders their email
@@ -73,7 +97,9 @@ Plans:
   2. The Daum/Kakao pane is visually labeled "estimated" so users understand the confidence level
   3. The simulation engine for Daum/Kakao uses the same `applyClientRules` interface as Naver and Gmail
   4. Unit tests document the assumed restrictions and pass against the conservative baseline ruleset
-**Plans**: TBD
+**Plans:** 1 plan
+Plans:
+- [x] 04-01-PLAN.md — Daum/Kakao simulation engine
 
 ### Phase 5: Code Editor
 **Goal**: Users can write and paste HTML email code into a syntax-highlighted editor without content being mangled
@@ -86,8 +112,7 @@ Plans:
   4. The editor accepts HTML IntelliSense and does not mangle indentation or encoding on paste
 **Plans:** 1 plan
 Plans:
-- [ ] 05-01-PLAN.md — Monaco editor with HTML syntax highlighting, paste fidelity, and dynamic import
-**UI hint**: yes
+- [x] 05-01-PLAN.md — Monaco editor with HTML syntax highlighting, paste fidelity, and dynamic import
 
 ### Phase 6: Real-time Preview Pipeline
 **Goal**: Users see their preview update within ~300ms of making any edit in the code editor
@@ -100,8 +125,7 @@ Plans:
   4. Rapid successive edits do not trigger multiple simultaneous renders — only the final state after debounce fires
 **Plans:** 1 plan
 Plans:
-- [ ] 06-01-PLAN.md — Debounced preview pipeline: useDebounce hook, PreviewPane with iframe srcdoc, editor+preview split layout
-**UI hint**: yes
+- [x] 06-01-PLAN.md — Debounced preview pipeline
 
 ### Phase 7: Multi-Client Parallel Layout
 **Goal**: Users can see all client previews side-by-side and compare rendering differences at a glance
@@ -112,8 +136,9 @@ Plans:
   2. Each preview pane is labeled with the client name
   3. User can resize the split between the editor and the preview area using a drag handle
   4. All panes update in real time when the user edits HTML in the editor
-**Plans**: TBD
-**UI hint**: yes
+**Plans:** 1 plan
+Plans:
+- [x] 07-01-PLAN.md — Multi-client parallel layout
 
 ### Phase 8: Viewport Toggle
 **Goal**: Users can switch each preview pane between mobile and desktop widths to test responsive rendering
@@ -124,8 +149,9 @@ Plans:
   2. The toggle state is independent per pane (one pane can be mobile while another is desktop)
   3. The viewport toggle does not reload or re-simulate the email — only the iframe container width changes
   4. The toggle button clearly indicates the current viewport state (mobile or desktop)
-**Plans**: TBD
-**UI hint**: yes
+**Plans:** 1 plan
+Plans:
+- [x] 08-01-PLAN.md — Viewport toggle
 
 ### Phase 9: Security & Sandbox Hardening
 **Goal**: The preview iframes are fully sandboxed and cannot exfiltrate data, execute scripts against the host, or access the parent frame
@@ -136,7 +162,9 @@ Plans:
   2. Each iframe document contains a CSP meta tag restricting scripts, external connections, and form submissions
   3. A `<base target="_blank">` tag is present in each frame document so links cannot navigate the parent
   4. Injecting `<script>alert(1)</script>` into the editor does not execute in any preview pane
-**Plans**: TBD
+**Plans:** 1 plan
+Plans:
+- [x] 09-01-PLAN.md — Security & sandbox hardening
 
 ### Phase 10: UX Polish & Launch Readiness
 **Goal**: The tool is ready for real users — client labels, simulation disclaimers, and confidence indicators are visible so users understand what they are seeing
@@ -148,24 +176,126 @@ Plans:
   3. The Naver and Gmail panes show confidence labeled "High" or equivalent
   4. The app renders without layout breaks at browser widths from 1024px to 1920px
   5. The app has a title, brief description, and is ready to be shared publicly at a URL
+**Plans:** 1 plan
+Plans:
+- [x] 10-01-PLAN.md — UX polish & launch readiness
+
+</details>
+
+### Phase 11: 레이아웃 개선
+**Goal**: 에디터가 뷰포트 전체 높이를 차지하고 프리뷰 패널이 수평으로 배치되어 전문 도구다운 레이아웃을 제공한다
+**Depends on**: Phase 10 (v1 완료)
+**Requirements**: LAYOUT-01, LAYOUT-02
+**Success Criteria** (what must be TRUE):
+  1. 에디터가 브라우저 뷰포트 높이를 꽉 채우며 페이지 전체 스크롤 없이 사용할 수 있다
+  2. 에디터와 프리뷰 영역이 수평으로 분할되며 에디터는 화면 왼쪽에 고정된다
+  3. 프리뷰 패널들이 가로로 나란히 배치되며 프리뷰 영역만 독립적으로 수평 스크롤된다
+  4. 에디터를 스크롤하거나 편집할 때 프리뷰 영역의 수평 스크롤 위치가 유지된다
 **Plans**: TBD
 **UI hint**: yes
+
+### Phase 12: CSS 호환성 경고 패널
+**Goal**: 사용자가 작성한 HTML에서 각 클라이언트별 호환되지 않는 CSS 속성을 한눈에 확인할 수 있다
+**Depends on**: Phase 11
+**Requirements**: CSS-01
+**Success Criteria** (what must be TRUE):
+  1. 사용자가 비호환 CSS 속성을 사용하면 경고 패널에 클라이언트명, 속성명, 줄 번호가 표시된다
+  2. 경고 항목을 클릭하면 에디터에서 해당 줄로 이동한다
+  3. HTML을 수정하면 경고 목록이 실시간으로 갱신된다
+  4. 경고 패널을 접거나 펼 수 있어 작업 공간을 확보할 수 있다
+**Plans**: TBD
+**UI hint**: yes
+
+### Phase 13: Inline CSS 자동 변환
+**Goal**: 사용자가 `<style>` 블록의 CSS를 버튼 하나로 inline style로 변환하여 이메일 호환성을 높일 수 있다
+**Depends on**: Phase 12 (경고 → 자동 수정 흐름)
+**Requirements**: CSS-02
+**Success Criteria** (what must be TRUE):
+  1. 사용자가 "Inline CSS" 버튼을 클릭하면 `<style>` 블록의 규칙이 대응 요소의 inline style로 변환된다
+  2. 변환 후 에디터 내용이 자동 갱신되고 프리뷰가 즉시 반영된다
+  3. 변환 전 원본 HTML로 되돌릴 수 있는 Undo 기능이 제공된다
+  4. 미디어 쿼리 등 inline으로 변환 불가능한 규칙은 보존되고 사용자에게 알림이 표시된다
+**Plans**: TBD
+**UI hint**: yes
+
+### Phase 14: Gmail 102KB 카운터
+**Goal**: 사용자가 Gmail의 102KB HTML 크기 제한에 대해 현재 상태를 실시간으로 파악할 수 있다
+**Depends on**: Phase 11 (레이아웃에 카운터 배치)
+**Requirements**: CSS-03
+**Success Criteria** (what must be TRUE):
+  1. 에디터 또는 상태바 영역에 현재 HTML 크기(KB)가 실시간으로 표시된다
+  2. 102KB를 초과하면 카운터가 경고 색상으로 변하고 경고 메시지가 표시된다
+  3. 크기 계산은 UTF-8 바이트 기준이며 에디터 수정 시 실시간 갱신된다
+**Plans**: TBD
+**UI hint**: yes
+
+### Phase 15: HTML 파일 업로드
+**Goal**: 사용자가 로컬 HTML 파일을 드래그앤드롭 또는 파일 선택으로 에디터에 바로 로드할 수 있다
+**Depends on**: Phase 11 (레이아웃 완성 후)
+**Requirements**: INPUT-01
+**Success Criteria** (what must be TRUE):
+  1. 사용자가 HTML 파일을 에디터 영역에 드래그앤드롭하면 파일 내용이 에디터에 로드된다
+  2. 파일 선택 버튼을 클릭하여 파일 탐색기에서 HTML 파일을 선택할 수 있다
+  3. .html/.htm 이외의 파일은 거부되고 사용자에게 안내 메시지가 표시된다
+  4. 파일 로드 후 프리뷰가 자동으로 갱신된다
+**Plans**: TBD
+**UI hint**: yes
+
+### Phase 16: Outlook 시뮬레이션
+**Goal**: 사용자가 Outlook Classic(Word 엔진)과 Outlook New(Chromium 엔진)에서의 이메일 렌더링을 시뮬레이션으로 확인할 수 있다
+**Depends on**: Phase 11 (수평 스크롤 레이아웃에 새 패널 추가)
+**Requirements**: OUT-01, OUT-02
+**Success Criteria** (what must be TRUE):
+  1. 프리뷰 영역에 Outlook Classic과 Outlook New 패널이 추가되어 기존 클라이언트와 나란히 표시된다
+  2. Outlook Classic 패널은 Word 엔진의 CSS 제한을 시뮬레이션한다 (float 무시, max-width 미지원, CSS position 제거 등)
+  3. Outlook New 패널은 Chromium 기반 제한을 시뮬레이션한다 (대부분 CSS 지원, 일부 제한)
+  4. 두 Outlook 패널 모두 기존 뷰포트 토글과 실시간 프리뷰 파이프라인이 작동한다
+**Plans**: TBD
+
+### Phase 17: 광고 수익화
+**Goal**: 사용자 경험을 방해하지 않는 위치에 광고가 표시되어 서비스 운영 비용을 충당할 수 있다
+**Depends on**: Phase 11 (레이아웃 확정 후 광고 위치 결정)
+**Requirements**: AD-01
+**Success Criteria** (what must be TRUE):
+  1. 페이지에 광고 영역이 렌더링되며 에디터와 프리뷰 작업 영역을 가리지 않는다
+  2. 광고 영역은 반응형으로 다양한 화면 크기에서 적절히 배치된다
+  3. 광고가 로드 실패해도 앱 기능에 영향을 주지 않는다 (graceful degradation)
+**Plans**: TBD
+**UI hint**: yes
+
+### Phase 18: v2 런칭 준비
+**Goal**: v2.0의 모든 기능이 통합 검증되고 프로덕션 배포 가능한 상태가 된다
+**Depends on**: Phase 12, 13, 14, 15, 16, 17 (모든 v2 기능 완료)
+**Requirements**: (none — QA/launch quality)
+**Success Criteria** (what must be TRUE):
+  1. 5개 클라이언트(네이버, 다음/카카오, Gmail, Outlook Classic, Outlook New) 프리뷰가 모두 동시에 작동한다
+  2. CSS 경고 패널, inline 변환, 102KB 카운터, 파일 업로드가 에디터와 함께 끊김 없이 작동한다
+  3. Chrome, Firefox, Safari 최신 버전에서 레이아웃 깨짐 없이 동작한다
+  4. Lighthouse Performance 점수 80 이상을 달성한다
 
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10
-Note: Phase 5 (Code Editor) has no dependency on Phases 1-4 and may be executed in parallel if desired.
+Phases 1-10 (v1.0): Complete.
+Phases 11-18 (v2.0): 11 → 12 → 13 → 14 → 15 → 16 → 17 → 18
 
-| Phase | Plans Complete | Status | Completed |
-|-------|----------------|--------|-----------|
-| 1. Foundation | 0/1 | Planning complete | - |
-| 2. Naver Simulation Engine | 1/1 | Complete | 2026-04-24 |
-| 3. Gmail Simulation Engine | 1/1 | Complete | 2026-04-24 |
-| 4. Daum/Kakao Simulation Engine | 1/1 | Complete | 2026-04-24 |
-| 5. Code Editor | 1/1 | Complete | 2026-04-24 |
-| 6. Real-time Preview Pipeline | 1/1 | Complete | 2026-04-24 |
-| 7. Multi-Client Parallel Layout | 1/1 | Complete | 2026-04-24 |
-| 8. Viewport Toggle | 1/1 | Complete | 2026-04-24 |
-| 9. Security & Sandbox Hardening | 1/1 | Complete | 2026-04-24 |
-| 10. UX Polish & Launch Readiness | 1/1 | Complete | 2026-04-24 |
+| Phase | Milestone | Plans Complete | Status | Completed |
+|-------|-----------|----------------|--------|-----------|
+| 1. Foundation | v1.0 | 1/1 | Complete | 2026-04-24 |
+| 2. Naver Simulation Engine | v1.0 | 1/1 | Complete | 2026-04-24 |
+| 3. Gmail Simulation Engine | v1.0 | 1/1 | Complete | 2026-04-24 |
+| 4. Daum/Kakao Simulation Engine | v1.0 | 1/1 | Complete | 2026-04-24 |
+| 5. Code Editor | v1.0 | 1/1 | Complete | 2026-04-24 |
+| 6. Real-time Preview Pipeline | v1.0 | 1/1 | Complete | 2026-04-24 |
+| 7. Multi-Client Parallel Layout | v1.0 | 1/1 | Complete | 2026-04-24 |
+| 8. Viewport Toggle | v1.0 | 1/1 | Complete | 2026-04-24 |
+| 9. Security & Sandbox Hardening | v1.0 | 1/1 | Complete | 2026-04-24 |
+| 10. UX Polish & Launch Readiness | v1.0 | 1/1 | Complete | 2026-04-24 |
+| 11. 레이아웃 개선 | v2.0 | 0/? | Not started | - |
+| 12. CSS 호환성 경고 패널 | v2.0 | 0/? | Not started | - |
+| 13. Inline CSS 자동 변환 | v2.0 | 0/? | Not started | - |
+| 14. Gmail 102KB 카운터 | v2.0 | 0/? | Not started | - |
+| 15. HTML 파일 업로드 | v2.0 | 0/? | Not started | - |
+| 16. Outlook 시뮬레이션 | v2.0 | 0/? | Not started | - |
+| 17. 광고 수익화 | v2.0 | 0/? | Not started | - |
+| 18. v2 런칭 준비 | v2.0 | 0/? | Not started | - |
