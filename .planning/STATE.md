@@ -1,17 +1,17 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.0
-milestone_name: milestone
-status: complete
-stopped_at: All phases complete
-last_updated: "2026-04-24T01:07:00.000Z"
+milestone: v2.0
+milestone_name: 프로덕션 확장
+status: planning
+stopped_at: Defining requirements
+last_updated: "2026-04-24T07:30:00.000Z"
 last_activity: 2026-04-24
 progress:
-  total_phases: 10
-  completed_phases: 10
-  total_plans: 10
-  completed_plans: 10
-  percent: 100
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-23)
 
 **Core value:** 각 이메일 클라이언트의 CSS 제한사항을 정확하게 시뮬레이션하여 실제 클라이언트에서 보이는 것과 거의 동일한 프리뷰를 제공하는 것.
-**Current focus:** Phase 08 — Viewport Toggle
+**Current focus:** v2.0 마일스톤 — 요구사항 정의 중
 
 ## Current Position
 
-Phase: 8
-Plan: 1/1 complete
-Status: Complete — verified
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
 Last activity: 2026-04-24
 
-Progress: [██████████] 100%
+Progress: [░░░░░░░░░░] 0%
 
 ## Performance Metrics
 
