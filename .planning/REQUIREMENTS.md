@@ -11,7 +11,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 - [x] **EDIT-01**: User can write and edit HTML in a code editor with syntax highlighting
 - [x] **EDIT-02**: User can paste HTML into the editor without content being mangled or reformatted
-- [ ] **EDIT-03**: User sees preview update in real-time as they edit HTML (debounced ~300ms)
+- [x] **EDIT-03**: User sees preview update in real-time as they edit HTML (debounced ~300ms)
 
 ### Client Simulation
 
