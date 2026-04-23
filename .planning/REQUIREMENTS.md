@@ -21,7 +21,7 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Layout & UX
 
-- [ ] **UX-01**: User can see all client previews side-by-side in a parallel layout
+- [x] **UX-01**: User can see all client previews side-by-side in a parallel layout
 - [ ] **UX-02**: User can toggle between mobile (375px) and desktop (600px) viewport per preview pane
 
 ## v2 Requirements
