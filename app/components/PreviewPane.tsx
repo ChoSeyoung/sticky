@@ -5,6 +5,17 @@ import { applyClientRules } from '@/lib/engine/applyClientRules'
 import type { ClientRuleset } from '@/lib/rulesets/types'
 import { useDebounce } from './useDebounce'
 
+const CSP_META = '<meta http-equiv="Content-Security-Policy" content="default-src \'none\'; style-src \'unsafe-inline\'; img-src data: https:;">'
+const BASE_TARGET = '<base target="_blank">'
+
+function wrapWithSecurityHeaders(html: string): string {
+  const headClose = html.indexOf('</head>')
+  if (headClose !== -1) {
+    return html.slice(0, headClose) + CSP_META + BASE_TARGET + html.slice(headClose)
+  }
+  return `<head>${CSP_META}${BASE_TARGET}</head>${html}`
+}
+
 type Viewport = 'desktop' | 'mobile'
 
 interface PreviewPaneProps {
@@ -17,10 +28,10 @@ export default function PreviewPane({ html, clientName, ruleset }: PreviewPanePr
   const debouncedHtml = useDebounce(html, 300)
   const [viewport, setViewport] = useState<Viewport>('desktop')
 
-  const simulatedHtml = useMemo(
-    () => applyClientRules(debouncedHtml, ruleset),
-    [debouncedHtml, ruleset]
-  )
+  const simulatedHtml = useMemo(() => {
+    const transformed = applyClientRules(debouncedHtml, ruleset)
+    return wrapWithSecurityHeaders(transformed)
+  }, [debouncedHtml, ruleset])
 
   return (
     <div className="flex flex-col flex-1 min-h-0">
