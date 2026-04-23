@@ -47,7 +47,9 @@ Plans:
   2. User writes an element with `margin` set inline — the Naver preview strips the `margin` property even from inline styles
   3. The simulation is a pure `applyClientRules(html, naverRuleset) => string` function with a passing unit test suite
   4. An HTML email with only inline-safe CSS renders identically in the Naver pane and the raw iframe
-**Plans**: TBD
+**Plans:** 1 plan
+Plans:
+- [ ] 02-01-PLAN.md — TDD: applyClientRules engine function + cheerio + unit tests
 
 ### Phase 3: Gmail Simulation Engine
 **Goal**: Users can see how Gmail's all-or-nothing `<style>` block stripping affects their email
@@ -152,7 +154,7 @@ Note: Phase 5 (Code Editor) has no dependency on Phases 1-4 and may be executed 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 0/1 | Planning complete | - |
-| 2. Naver Simulation Engine | 0/TBD | Not started | - |
+| 2. Naver Simulation Engine | 0/1 | Planning complete | - |
 | 3. Gmail Simulation Engine | 0/TBD | Not started | - |
 | 4. Daum/Kakao Simulation Engine | 0/TBD | Not started | - |
 | 5. Code Editor | 0/TBD | Not started | - |
