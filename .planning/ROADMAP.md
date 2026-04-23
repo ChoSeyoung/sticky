@@ -36,7 +36,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. A ruleset schema test asserts all required fields are present for each defined client
 **Plans:** 1 plan
 Plans:
-- [ ] 01-01-PLAN.md — Type contracts, client rulesets, Vitest setup, and schema test
+- [x] 01-01-PLAN.md — Type contracts, client rulesets, Vitest setup, and schema test
 
 ### Phase 2: Naver Simulation Engine
 **Goal**: Users can see accurately how their HTML email renders under Naver Mail's CSS restrictions
