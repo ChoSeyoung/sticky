@@ -35,7 +35,7 @@ describe('applyClientRules — naverRuleset', () => {
     })
 
     it('strips padding from inline style', () => {
-      const input = '<td style="padding: 10px; font-size: 14px;">cell</td>'
+      const input = '<table><tr><td style="padding: 10px; font-size: 14px;">cell</td></tr></table>'
       const result = applyClientRules(input, naverRuleset)
       expect(result).not.toContain('padding')
       expect(result).toContain('font-size: 14px')
