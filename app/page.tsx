@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback, useRef, type DragEvent, type ChangeEvent } from 'react'
+import { useState, useCallback, useRef, useEffect, type DragEvent, type ChangeEvent, type MouseEvent as ReactMouseEvent } from 'react'
 import dynamic from 'next/dynamic'
 import { inlineCss } from '@/lib/engine/inlineCss'
 import { naverRuleset } from '@/lib/rulesets/naver'
@@ -164,10 +164,37 @@ function SizeCounter({ html }: { html: string }) {
   )
 }
 
+type LayoutMode = 'split' | 'html' | 'preview'
+
 export default function Home() {
   const [html, setHtml] = useState<string>(DEFAULT_HTML)
   const previousHtmlRef = useRef<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const [layoutMode, setLayoutMode] = useState<LayoutMode>('split')
+  const [splitPercent, setSplitPercent] = useState(45)
+  const isDragging = useRef(false)
+  const mainRef = useRef<HTMLDivElement>(null)
+
+  const handleDragStart = useCallback((e: ReactMouseEvent) => {
+    e.preventDefault()
+    isDragging.current = true
+  }, [])
+
+  useEffect(() => {
+    const handleMouseMove = (e: globalThis.MouseEvent) => {
+      if (!isDragging.current || !mainRef.current) return
+      const rect = mainRef.current.getBoundingClientRect()
+      const percent = ((e.clientX - rect.left) / rect.width) * 100
+      setSplitPercent(Math.max(20, Math.min(80, percent)))
+    }
+    const handleMouseUp = () => { isDragging.current = false }
+    window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('mouseup', handleMouseUp)
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('mouseup', handleMouseUp)
+    }
+  }, [])
 
   const loadFile = useCallback((file: File) => {
     if (!file.name.match(/\.html?$/i)) return
@@ -213,6 +240,21 @@ export default function Home() {
       <header className="flex items-center justify-between h-12 px-4 bg-zinc-900 border-b border-zinc-700">
         <h1 className="text-sm font-semibold text-zinc-300">Sticky — HTML Email Preview</h1>
         <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1 mr-2 border-r border-zinc-700 pr-3">
+            {(['html', 'split', 'preview'] as const).map((mode) => (
+              <button
+                key={mode}
+                onClick={() => setLayoutMode(mode)}
+                className={`px-2 py-0.5 text-xs rounded ${
+                  layoutMode === mode
+                    ? 'bg-zinc-600 text-white'
+                    : 'text-zinc-400 hover:text-zinc-200'
+                }`}
+              >
+                {mode === 'html' ? 'HTML' : mode === 'split' ? 'Split' : 'Preview'}
+              </button>
+            ))}
+          </div>
           <SizeCounter html={html} />
           {previousHtmlRef.current !== null && (
             <button
@@ -245,23 +287,40 @@ export default function Home() {
       </header>
       <AdBanner slot="1234567890" />
       <main
+        ref={mainRef}
         className="flex flex-1 min-h-0"
         onDrop={handleDrop}
         onDragOver={(e) => e.preventDefault()}
       >
-        <div className="flex flex-col w-[45%] min-w-[400px] flex-shrink-0">
-          <HtmlEditor value={html} onChange={setHtml} />
-        </div>
-        <div className="flex flex-row flex-1 min-w-0 overflow-x-auto border-l border-zinc-700">
-          {CLIENTS.map((client) => (
-            <PreviewPane
-              key={client.name}
-              html={html}
-              clientName={client.name}
-              ruleset={client.ruleset}
-            />
-          ))}
-        </div>
+        {layoutMode !== 'preview' && (
+          <div
+            className="flex flex-col flex-shrink-0"
+            style={{ width: layoutMode === 'html' ? '100%' : `${splitPercent}%` }}
+          >
+            <HtmlEditor value={html} onChange={setHtml} />
+          </div>
+        )}
+        {layoutMode === 'split' && (
+          <div
+            className="w-1 flex-shrink-0 bg-zinc-700 hover:bg-blue-500 cursor-col-resize active:bg-blue-400 transition-colors"
+            onMouseDown={handleDragStart}
+          />
+        )}
+        {layoutMode !== 'html' && (
+          <div
+            className="flex flex-row flex-1 min-w-0 overflow-x-auto"
+            style={{ width: layoutMode === 'preview' ? '100%' : undefined }}
+          >
+            {CLIENTS.map((client) => (
+              <PreviewPane
+                key={client.name}
+                html={html}
+                clientName={client.name}
+                ruleset={client.ruleset}
+              />
+            ))}
+          </div>
+        )}
       </main>
       <WarningPanel html={html} clients={[...CLIENTS]} />
     </div>
