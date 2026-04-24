@@ -13,6 +13,7 @@ interface WarningPanelProps {
 export default function WarningPanel({ html, clients }: WarningPanelProps) {
   const debouncedHtml = useDebounce(html, 300)
   const [collapsed, setCollapsed] = useState(false)
+  const [expandedIdx, setExpandedIdx] = useState<number | null>(null)
 
   const warnings = useMemo(
     () => analyzeCssCompatibility(debouncedHtml, clients),
@@ -44,7 +45,7 @@ export default function WarningPanel({ html, clients }: WarningPanelProps) {
           )}
           {warnings.length === 0 && (
             <span className="px-1.5 py-0.5 text-[10px] font-medium rounded bg-green-900 text-green-300">
-              OK
+              모든 클라이언트 호환
             </span>
           )}
         </div>
@@ -53,43 +54,53 @@ export default function WarningPanel({ html, clients }: WarningPanelProps) {
         </span>
       </button>
       {!collapsed && warnings.length > 0 && (
-        <div className="max-h-40 overflow-y-auto px-4 pb-2">
-          <table className="w-full text-xs">
-            <thead>
-              <tr className="text-zinc-500 text-left">
-                <th className="py-1 pr-3 font-medium">클라이언트</th>
-                <th className="py-1 pr-3 font-medium">속성</th>
-                <th className="py-1 pr-3 font-medium">요소</th>
-                <th className="py-1 font-medium">유형</th>
-              </tr>
-            </thead>
-            <tbody>
-              {warnings.map((w, i) => (
-                <WarningRow key={i} warning={w} />
-              ))}
-            </tbody>
-          </table>
+        <div className="max-h-52 overflow-y-auto px-4 pb-2">
+          {warnings.map((w, i) => (
+            <WarningRow
+              key={i}
+              warning={w}
+              expanded={expandedIdx === i}
+              onToggle={() => setExpandedIdx(expandedIdx === i ? null : i)}
+            />
+          ))}
         </div>
       )}
     </div>
   )
 }
 
-function WarningRow({ warning }: { warning: CssWarning }) {
+function WarningRow({ warning, expanded, onToggle }: {
+  warning: CssWarning
+  expanded: boolean
+  onToggle: () => void
+}) {
   return (
-    <tr className="text-zinc-300 border-t border-zinc-800">
-      <td className="py-1 pr-3">{warning.client}</td>
-      <td className="py-1 pr-3 font-mono text-[11px]">{warning.property}</td>
-      <td className="py-1 pr-3 font-mono text-[11px]">{warning.element}</td>
-      <td className="py-1">
-        <span className={`px-1 py-0.5 rounded text-[10px] ${
+    <div className="border-t border-zinc-800">
+      <button
+        onClick={onToggle}
+        className="flex items-center gap-3 w-full py-1.5 text-xs text-left hover:bg-zinc-800/50"
+      >
+        <span className={`px-1 py-0.5 rounded text-[10px] flex-shrink-0 ${
           warning.severity === 'error'
             ? 'bg-red-900/50 text-red-400'
             : 'bg-amber-900/50 text-amber-400'
         }`}>
-          {warning.severity}
+          {warning.severity === 'error' ? '✕' : '⚠'}
         </span>
-      </td>
-    </tr>
+        <span className="text-zinc-400 flex-shrink-0 w-28">{warning.client}</span>
+        <span className="text-zinc-300 flex-1 truncate">{warning.impact}</span>
+        <span className="text-zinc-600 flex-shrink-0">{expanded ? '▼' : '▶'}</span>
+      </button>
+      {expanded && (
+        <div className="ml-10 mb-2 pl-3 border-l-2 border-zinc-700">
+          <div className="text-[11px] text-zinc-400 mb-1">
+            <span className="text-zinc-500">영향:</span> {warning.impact}
+          </div>
+          <div className="text-[11px] text-green-400">
+            <span className="text-zinc-500">해결:</span> {warning.fix}
+          </div>
+        </div>
+      )}
+    </div>
   )
 }
