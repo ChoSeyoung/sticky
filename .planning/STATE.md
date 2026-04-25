@@ -1,12 +1,13 @@
 ---
 gsd_state_version: 1.0
-milestone: v3.0
-milestone_name: 사용성 개선
-status: active
-last_updated: "2026-04-25"
-last_activity: 2026-04-25
+milestone: v2.0
+milestone_name: 프로덕션 확장
+status: Ready to discuss
+stopped_at: Phase 19 context gathered
+last_updated: "2026-04-25T13:08:50.424Z"
+last_activity: 2026-04-25 — v3.0 milestone started
 progress:
-  total_phases: 6
+  total_phases: 14
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -81,6 +82,6 @@ Items acknowledged and carried forward:
 
 ## Session Continuity
 
-Last session: v3.0 milestone initialization
-Stopped at: Requirements and roadmap defined, ready to discuss Phase 19
-Resume file: None
+Last session: --stopped-at
+Stopped at: Phase 19 context gathered
+Resume file: --resume-file
