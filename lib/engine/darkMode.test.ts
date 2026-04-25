@@ -177,8 +177,11 @@ describe('applyDarkMode', () => {
     const html = '<div style="background-color: #ffffff; color: #000000;">text</div>'
     const result = applyDarkMode(html, 'partial', false)
     // partial strategy should invert near-white bg and near-black color
+    // #ffffff (L=100) inverts to dark; #000000 (L=0) inverts to light
     expect(result).not.toContain('background-color: #ffffff')
-    expect(result).not.toContain('color: #000000')
+    // color property should be inverted to a light value, not #000000 anymore
+    // (note: background-color may become #000000 so we check style string more specifically)
+    expect(result).not.toContain('; color: #000000')
   })
 
   it('returns unchanged HTML when strategy is none and originalHasDarkCss is false', () => {
