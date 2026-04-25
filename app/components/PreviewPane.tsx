@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react'
 import { applyClientRules } from '@/lib/engine/applyClientRules'
 import type { ClientRuleset } from '@/lib/rulesets/types'
 import { useDebounce } from './useDebounce'
+import { hasDarkMediaQuery, applyDarkMode } from '@/lib/engine/darkMode'
 
 const CSP_META = '<meta http-equiv="Content-Security-Policy" content="default-src \'none\'; style-src \'unsafe-inline\'; img-src data: https:;">'
 const BASE_TARGET = '<base target="_blank">'
@@ -17,6 +18,7 @@ function wrapWithSecurityHeaders(html: string): string {
 }
 
 type Viewport = 'desktop' | 'mobile'
+type ColorMode = 'light' | 'dark'
 
 interface PreviewPaneProps {
   html: string
@@ -27,11 +29,16 @@ interface PreviewPaneProps {
 export default function PreviewPane({ html, clientName, ruleset }: PreviewPaneProps) {
   const debouncedHtml = useDebounce(html, 300)
   const [viewport, setViewport] = useState<Viewport>('desktop')
+  const [colorMode, setColorMode] = useState<ColorMode>('light')
 
   const simulatedHtml = useMemo(() => {
+    const originalHasDarkCss = hasDarkMediaQuery(debouncedHtml)
     const transformed = applyClientRules(debouncedHtml, ruleset)
-    return wrapWithSecurityHeaders(transformed)
-  }, [debouncedHtml, ruleset])
+    const withDark = colorMode === 'dark'
+      ? applyDarkMode(transformed, ruleset.darkModeStrategy, originalHasDarkCss)
+      : transformed
+    return wrapWithSecurityHeaders(withDark)
+  }, [debouncedHtml, ruleset, colorMode])
 
   return (
     <div className="flex flex-col min-w-[420px] h-full flex-shrink-0 border-r border-zinc-200">
@@ -72,13 +79,38 @@ export default function PreviewPane({ html, clientName, ruleset }: PreviewPanePr
             Mobile
           </button>
           </div>
+          <div className="w-px h-4 bg-zinc-300 mx-1" />
+          <div className="flex gap-1">
+            <button
+              onClick={() => setColorMode('light')}
+              className={`px-2 py-0.5 text-xs rounded ${
+                colorMode === 'light'
+                  ? 'bg-zinc-300 text-zinc-700'
+                  : 'text-zinc-400 hover:text-zinc-600'
+              }`}
+              title="Light mode"
+            >
+              Light
+            </button>
+            <button
+              onClick={() => setColorMode('dark')}
+              className={`px-2 py-0.5 text-xs rounded ${
+                colorMode === 'dark'
+                  ? 'bg-zinc-700 text-zinc-200'
+                  : 'text-zinc-400 hover:text-zinc-600'
+              }`}
+              title="Dark mode"
+            >
+              Dark
+            </button>
+          </div>
         </div>
       </div>
-      <div className="flex-1 overflow-auto bg-zinc-50 flex justify-center">
+      <div className={`flex-1 overflow-auto ${colorMode === 'dark' ? 'bg-zinc-800' : 'bg-zinc-50'} flex justify-center`}>
         <iframe
           srcDoc={simulatedHtml}
           sandbox="allow-same-origin"
-          className="border-0 bg-white h-full"
+          className={`border-0 h-full ${colorMode === 'dark' ? 'bg-zinc-900' : 'bg-white'}`}
           style={{ width: viewport === 'desktop' ? '600px' : '375px' }}
           title={`${clientName} Preview`}
         />
