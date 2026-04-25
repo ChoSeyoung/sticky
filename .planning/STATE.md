@@ -4,7 +4,7 @@ milestone: v2.0
 milestone_name: 프로덕션 확장
 status: completed
 stopped_at: Phase 21 context gathered
-last_updated: "2026-04-25T14:21:42.292Z"
+last_updated: "2026-04-25T14:33:31.852Z"
 last_activity: 2026-04-25
 progress:
   total_phases: 18
@@ -86,4 +86,4 @@ Last session: --stopped-at
 Stopped at: Phase 21 context gathered
 Resume file: --resume-file
 
-**Planned Phase:** 20 (HTML 소스 복사) — 1 plans — 2026-04-25T14:14:37.289Z
+**Planned Phase:** 21 (다크모드 프리뷰) — 2 plans — 2026-04-25T14:33:31.849Z
