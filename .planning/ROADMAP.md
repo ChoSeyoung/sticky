@@ -284,11 +284,11 @@ Plans:
   2. 샘플 템플릿의 역할과 각 클라이언트별 프리뷰 차이를 안내한다
   3. 사용자가 온보딩을 건너뛰거나 다시 볼 수 있다
   4. 온보딩 완료 여부가 저장되어 재방문 시 다시 표시되지 않는다
-**Plans:** 2 plans
+**Plans:** 2/2 plans complete
 **UI hint**: yes
 Plans:
-- [ ] 19-01-PLAN.md — OnboardingOverlay component + useOnboarding hook + unit tests
-- [ ] 19-02-PLAN.md — page.tsx integration + visual checkpoint
+- [x] 19-01-PLAN.md — OnboardingOverlay component + useOnboarding hook + unit tests
+- [x] 19-02-PLAN.md — page.tsx integration + visual checkpoint
 
 ### Phase 20: HTML 소스 복사
 **Goal**: 검수 완료된 HTML 소스코드를 클립보드에 복사하여 프로젝트에 바로 가져갈 수 있다
@@ -367,7 +367,7 @@ Phases 19-24 (v3.0): 19 → 20 → 21 → 22 → 23 → 24
 | 16. Outlook 시뮬레이션 | v2.0 | 0/? | Not started | - |
 | 17. 광고 수익화 | v2.0 | 0/? | Not started | - |
 | 18. v2 런칭 준비 | v2.0 | 0/? | Not started | - |
-| 19. 온보딩 플로우 | v3.0 | 0/2 | Planned | - |
+| 19. 온보딩 플로우 | v3.0 | 2/2 | Complete    | 2026-04-25 |
 | 20. HTML 소스 복사 | v3.0 | 0/? | Not started | - |
 | 21. 다크모드 프리뷰 | v3.0 | 0/? | Not started | - |
 | 22. 링크 검증 | v3.0 | 0/? | Not started | - |
