@@ -4,7 +4,7 @@ milestone: v2.0
 milestone_name: 프로덕션 확장
 status: Ready to discuss
 stopped_at: Phase 19 UI-SPEC approved
-last_updated: "2026-04-25T13:18:09.395Z"
+last_updated: "2026-04-25T13:26:57.229Z"
 last_activity: 2026-04-25 — v3.0 milestone started
 progress:
   total_phases: 18
@@ -85,3 +85,5 @@ Items acknowledged and carried forward:
 Last session: --stopped-at
 Stopped at: Phase 19 UI-SPEC approved
 Resume file: --resume-file
+
+**Planned Phase:** 19 (온보딩 플로우) — 2 plans — 2026-04-25T13:26:57.226Z
