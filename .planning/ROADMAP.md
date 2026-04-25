@@ -298,9 +298,9 @@ Plans:
   1. 헤더에 "소스 복사" 버튼이 있으며 클릭 시 에디터의 HTML이 클립보드에 복사된다
   2. 복사 완료 시 시각적 피드백이 제공된다 (버튼 텍스트 변경 또는 토스트)
   3. 클립보드 API 미지원 브라우저에서도 fallback이 동작한다
-**Plans:** 1 plan
+**Plans:** 1/1 plans complete
 Plans:
-- [ ] 20-01-PLAN.md — Header copy button with clipboard API + fallback
+- [x] 20-01-PLAN.md — Header copy button with clipboard API + fallback
 
 ### Phase 21: 다크모드 프리뷰
 **Goal**: 이메일 클라이언트의 다크모드에서 템플릿이 어떻게 보이는지 시뮬레이션으로 확인할 수 있다
@@ -371,7 +371,7 @@ Phases 19-24 (v3.0): 19 → 20 → 21 → 22 → 23 → 24
 | 17. 광고 수익화 | v2.0 | 0/? | Not started | - |
 | 18. v2 런칭 준비 | v2.0 | 0/? | Not started | - |
 | 19. 온보딩 플로우 | v3.0 | 2/2 | Complete    | 2026-04-25 |
-| 20. HTML 소스 복사 | v3.0 | 0/1 | Not started | - |
+| 20. HTML 소스 복사 | v3.0 | 1/1 | Complete    | 2026-04-25 |
 | 21. 다크모드 프리뷰 | v3.0 | 0/? | Not started | - |
 | 22. 링크 검증 | v3.0 | 0/? | Not started | - |
 | 23. 접근성 검사 | v3.0 | 0/? | Not started | - |
