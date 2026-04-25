@@ -44,7 +44,7 @@ HTML 이메일을 입력하면 한국에서 주로 사용되는 이메일 클라
 
 ### Active (v3.0)
 
-- [ ] 온보딩 플로우 — 첫 방문자 가이드 (UX-03)
+- [x] 온보딩 플로우 — 첫 방문자 가이드 (UX-03) — Validated in Phase 19
 - [ ] HTML 소스 복사 — 클립보드 복사 (UX-04)
 - [ ] 다크모드 프리뷰 — 클라이언트별 다크모드 시뮬레이션 (SIM-04)
 - [ ] 링크 검증 — 빈 링크, placeholder 탐지 (QA-01)
@@ -101,4 +101,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-25 — v3.0 마일스톤 시작. v2.0 완료 (18 phases, 모든 requirements validated)*
+*Last updated: 2026-04-25 — Phase 19 온보딩 플로우 완료. v3.0 진행 중.*
