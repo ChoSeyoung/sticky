@@ -290,6 +290,11 @@ export default function Home() {
     }
   }, [])
 
+  // WR-04: ensure split layout when onboarding starts so all target refs are mounted
+  useEffect(() => {
+    if (onboardingVisible && layoutMode !== 'split') setLayoutMode('split')
+  }, [onboardingVisible, layoutMode])
+
   const loadFile = useCallback((file: File) => {
     if (!file.name.match(/\.html?$/i)) return
     const reader = new FileReader()
