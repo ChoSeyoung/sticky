@@ -243,6 +243,8 @@ export default function Home() {
   const mainRef = useRef<HTMLDivElement>(null)
   const { enabled: enabledClients, toggle: toggleClient } = useEnabledClients()
   const [showSendModal, setShowSendModal] = useState(false)
+  const [copyLabel, setCopyLabel] = useState<string>('소스 복사')
+  const copyTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const editorWrapperRef = useRef<HTMLDivElement>(null)
   const previewAreaRef = useRef<HTMLDivElement>(null)
   const clientsBarRef = useRef<HTMLDivElement>(null)
@@ -317,6 +319,23 @@ export default function Home() {
     e.target.value = ''
   }, [loadFile])
 
+  const handleCopyHtml = useCallback(async () => {
+    if (copyTimerRef.current) clearTimeout(copyTimerRef.current)
+    try {
+      await navigator.clipboard.writeText(html)
+    } catch {
+      const ta = document.createElement('textarea')
+      ta.value = html
+      ta.style.cssText = 'position:fixed;opacity:0;pointer-events:none'
+      document.body.appendChild(ta)
+      ta.select()
+      document.execCommand('copy')
+      document.body.removeChild(ta)
+    }
+    setCopyLabel('복사됨!')
+    copyTimerRef.current = setTimeout(() => setCopyLabel('소스 복사'), 2000)
+  }, [html])
+
   const handleInlineCss = useCallback(() => {
     previousHtmlRef.current = html
     try {
@@ -372,6 +391,16 @@ export default function Home() {
               Undo Inline
             </button>
           )}
+          <button
+            onClick={handleCopyHtml}
+            className={`px-3 py-1 text-xs rounded ${
+              copyLabel === '복사됨!'
+                ? 'bg-green-700 text-white hover:bg-green-600'
+                : 'bg-zinc-700 text-zinc-300 hover:bg-zinc-600'
+            }`}
+          >
+            {copyLabel}
+          </button>
           <button
             onClick={handleInlineCss}
             className="px-3 py-1 text-xs rounded bg-blue-600 text-white hover:bg-blue-500"
