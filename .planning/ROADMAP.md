@@ -311,7 +311,11 @@ Plans:
   2. 다크모드 활성화 시 `prefers-color-scheme: dark` 미디어쿼리가 적용된다
   3. 다크모드 미대응 템플릿의 경우 클라이언트별 자동 색상 반전 로직이 시뮬레이션된다
   4. 라이트/다크 모드 전환 시 프리뷰가 즉시 갱신된다
+**Plans:** 2 plans
 **UI hint**: yes
+Plans:
+- [ ] 21-01-PLAN.md — Dark mode engine: type extension, client strategies, pure functions, unit tests
+- [ ] 21-02-PLAN.md — PreviewPane dark mode toggle UI and pipeline integration
 
 ### Phase 22: 링크 검증
 **Goal**: 템플릿 내 링크의 문제점을 자동으로 탐지하여 발송 전 실수를 방지한다
@@ -372,7 +376,7 @@ Phases 19-24 (v3.0): 19 → 20 → 21 → 22 → 23 → 24
 | 18. v2 런칭 준비 | v2.0 | 0/? | Not started | - |
 | 19. 온보딩 플로우 | v3.0 | 2/2 | Complete    | 2026-04-25 |
 | 20. HTML 소스 복사 | v3.0 | 1/1 | Complete    | 2026-04-25 |
-| 21. 다크모드 프리뷰 | v3.0 | 0/? | Not started | - |
+| 21. 다크모드 프리뷰 | v3.0 | 0/2 | Not started | - |
 | 22. 링크 검증 | v3.0 | 0/? | Not started | - |
 | 23. 접근성 검사 | v3.0 | 0/? | Not started | - |
 | 24. 스팸 트리거 분석 | v3.0 | 0/? | Not started | - |
