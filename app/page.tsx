@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect, type DragEvent, type ChangeEvent, type MouseEvent as ReactMouseEvent } from 'react'
 import dynamic from 'next/dynamic'
-import { getInitialVisibility, markOnboardingComplete } from '@/app/components/OnboardingOverlay'
+import { getInitialVisibility, markOnboardingComplete, clearOnboardingComplete } from '@/app/components/OnboardingOverlay'
 import { inlineCss } from '@/lib/engine/inlineCss'
 import { naverRuleset } from '@/lib/rulesets/naver'
 import { gmailRuleset } from '@/lib/rulesets/gmail'
@@ -214,19 +214,23 @@ function useOnboarding() {
     if (typeof window === 'undefined') return false
     return getInitialVisibility()
   })
-  const [step, setStep] = useState(0)
 
   const complete = useCallback(() => {
     markOnboardingComplete()
     setVisible(false)
   }, [])
 
+  // skip hides the overlay for this session only — does not persist to localStorage
+  const skip = useCallback(() => {
+    setVisible(false)
+  }, [])
+
   const restart = useCallback(() => {
-    setStep(0)
+    clearOnboardingComplete()  // clear persistence so reload also shows overlay
     setVisible(true)
   }, [])
 
-  return { visible, step, setStep, complete, restart }
+  return { visible, complete, skip, restart }
 }
 
 export default function Home() {
@@ -242,7 +246,7 @@ export default function Home() {
   const editorWrapperRef = useRef<HTMLDivElement>(null)
   const previewAreaRef = useRef<HTMLDivElement>(null)
   const clientsBarRef = useRef<HTMLDivElement>(null)
-  const { visible: onboardingVisible, complete: onboardingComplete, restart: onboardingRestart } = useOnboarding()
+  const { visible: onboardingVisible, complete: onboardingComplete, skip: onboardingSkip, restart: onboardingRestart } = useOnboarding()
 
   const onboardingSteps = [
     {
@@ -456,7 +460,7 @@ export default function Home() {
         <OnboardingOverlay
           steps={onboardingSteps}
           onComplete={onboardingComplete}
-          onSkip={onboardingComplete}
+          onSkip={onboardingSkip}
         />
       )}
     </div>
