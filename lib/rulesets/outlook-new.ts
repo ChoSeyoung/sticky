@@ -19,4 +19,5 @@ export const outlookNewRuleset: ClientRuleset = {
     lastVerified: '2026-04-24',
     notes: 'Outlook New uses Chromium rendering — much better CSS support than Classic. Strips script/iframe for security, conditionally strips <style> blocks with dangerous patterns',
   },
-} as const
+  darkModeStrategy: 'partial',
+}

@@ -12,4 +12,5 @@ export const naverRuleset: ClientRuleset = {
     lastVerified: '2026-04-23',
     notes: 'Naver strips <style> blocks and blocks certain inline properties; strippedProperties list is approximate — Phase 2 simulation will refine',
   },
-} as const
+  darkModeStrategy: 'none',
+}

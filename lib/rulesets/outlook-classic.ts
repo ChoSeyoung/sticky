@@ -22,4 +22,5 @@ export const outlookClassicRuleset: ClientRuleset = {
     lastVerified: '2026-04-24',
     notes: 'Outlook Classic uses Word HTML rendering engine with severe CSS limitations; property list is conservative estimate based on known Word engine restrictions',
   },
-} as const
+  darkModeStrategy: 'partial',
+}

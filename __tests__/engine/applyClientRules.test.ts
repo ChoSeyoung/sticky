@@ -96,6 +96,7 @@ describe('applyClientRules — naverRuleset', () => {
         strippedElements: [],
         confidence: 'high',
         provenance: { source: 'test', method: 'inferred', lastVerified: '2026-01-01' },
+        darkModeStrategy: 'none',
       }
       const input = '<p style="margin: 0; background: red;">text</p>'
       const result = applyClientRules(input, customRuleset)
@@ -111,6 +112,7 @@ describe('applyClientRules — naverRuleset', () => {
         strippedElements: [],
         confidence: 'high',
         provenance: { source: 'test', method: 'inferred', lastVerified: '2026-01-01' },
+        darkModeStrategy: 'none',
       }
       const input = '<html><head><style>body{color:red}</style></head><body>hi</body></html>'
       const result = applyClientRules(input, customRuleset)
@@ -125,6 +127,7 @@ describe('applyClientRules — naverRuleset', () => {
         strippedElements: ['script'],
         confidence: 'high',
         provenance: { source: 'test', method: 'inferred', lastVerified: '2026-01-01' },
+        darkModeStrategy: 'none',
       }
       const input = '<html><body><script>alert(1)</script><p>hi</p></body></html>'
       const result = applyClientRules(input, customRuleset)

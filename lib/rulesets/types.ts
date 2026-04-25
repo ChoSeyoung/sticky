@@ -1,5 +1,7 @@
 export type Confidence = 'high' | 'medium' | 'estimated'
 
+export type DarkModeStrategy = 'none' | 'partial' | 'full'
+
 export type ProvenanceMethod =
   | 'official-docs'
   | 'webmail-inspection'
@@ -25,4 +27,5 @@ export interface ClientRuleset {
   strippedElements: string[]
   confidence: Confidence
   provenance: Provenance
+  darkModeStrategy: DarkModeStrategy
 }

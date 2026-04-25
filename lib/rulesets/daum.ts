@@ -12,4 +12,5 @@ export const daumRuleset: ClientRuleset = {
     lastVerified: '2026-04-23',
     notes: 'No official documentation available; caniemail.com has zero Korean client data; conservative baseline from community inspection',
   },
-} as const
+  darkModeStrategy: 'none',
+}

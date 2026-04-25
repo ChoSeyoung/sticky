@@ -22,4 +22,5 @@ export const gmailRuleset: ClientRuleset = {
     lastVerified: '2026-04-24',
     notes: 'Gmail conditionally strips <style> blocks containing disallowed patterns; pattern list based on known block-kill triggers from freshinbox.com and emailonacid.com',
   },
-} as const
+  darkModeStrategy: 'partial',
+}
