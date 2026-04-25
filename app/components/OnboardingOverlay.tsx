@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useLayoutEffect, RefObject } from 'react'
+import React, { useState, useEffect, useLayoutEffect, RefObject } from 'react'
 
 // ── localStorage helpers (exported for unit testing) ──────────────────────
 
@@ -36,6 +36,33 @@ export interface OnboardingOverlayProps {
   steps: OnboardingStep[]
   onComplete: () => void
   onSkip: () => void
+}
+
+// ── localStorage clear helper ─────────────────────────────────────────────
+
+export function clearOnboardingComplete(): void {
+  try { localStorage.removeItem(ONBOARDING_KEY) } catch { /* ignore */ }
+}
+
+// ── Placement helpers ─────────────────────────────────────────────────────
+
+const POPOVER_OFFSET = 12
+const POPOVER_WIDTH = 288  // matches Tailwind w-72
+const POPOVER_EDGE_MARGIN = 8
+
+function computePopoverStyle(
+  rect: DOMRect,
+  placement: OnboardingStep['placement'],
+  popoverLeft: number,
+): React.CSSProperties {
+  if (placement === 'top') {
+    return { bottom: window.innerHeight - rect.top + POPOVER_OFFSET, left: popoverLeft }
+  }
+  if (placement === 'right') {
+    return { top: rect.top, left: rect.right + POPOVER_OFFSET }
+  }
+  // default 'bottom'
+  return { top: rect.bottom + POPOVER_OFFSET, left: popoverLeft }
 }
 
 // ── Component ─────────────────────────────────────────────────────────────
@@ -79,8 +106,10 @@ export default function OnboardingOverlay({ steps, onComplete, onSkip }: Onboard
   if (!rect) return null
 
   const popoverLeft = typeof window !== 'undefined'
-    ? Math.min(Math.max(8, rect.left), window.innerWidth - 296)
+    ? Math.min(Math.max(POPOVER_EDGE_MARGIN, rect.left), window.innerWidth - POPOVER_WIDTH - POPOVER_EDGE_MARGIN)
     : rect.left
+
+  const popoverStyle = computePopoverStyle(rect, steps[stepIndex].placement, popoverLeft)
 
   return (
     <div
@@ -103,10 +132,7 @@ export default function OnboardingOverlay({ steps, onComplete, onSkip }: Onboard
       {/* Popover card */}
       <div
         className="absolute pointer-events-auto bg-zinc-900 text-white rounded-lg shadow-xl p-4 w-72 border border-zinc-700"
-        style={{
-          top: rect.bottom + 12,
-          left: popoverLeft,
-        }}
+        style={popoverStyle}
       >
         <p className="text-xs text-blue-400 mb-1">{stepIndex + 1} / {steps.length}</p>
         <p className="text-sm font-semibold mb-1">{steps[stepIndex].title}</p>
