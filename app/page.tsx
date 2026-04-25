@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect, type DragEvent, type ChangeEvent, type MouseEvent as ReactMouseEvent } from 'react'
 import dynamic from 'next/dynamic'
+import { getInitialVisibility, markOnboardingComplete } from '@/app/components/OnboardingOverlay'
 import { inlineCss } from '@/lib/engine/inlineCss'
 import { naverRuleset } from '@/lib/rulesets/naver'
 import { gmailRuleset } from '@/lib/rulesets/gmail'
@@ -35,12 +36,21 @@ const AdBanner = dynamic(() => import('@/app/components/AdBanner'), {
   ssr: false,
 })
 
+const SendEmailModal = dynamic(() => import('@/app/components/SendEmailModal'), {
+  ssr: false,
+})
+
+const OnboardingOverlay = dynamic(
+  () => import('@/app/components/OnboardingOverlay'),
+  { ssr: false }
+)
+
 const CLIENTS = [
-  { name: 'Naver Mail', ruleset: naverRuleset },
+  { name: 'Naver', ruleset: naverRuleset },
   { name: 'Gmail', ruleset: gmailRuleset },
   { name: 'Outlook Classic', ruleset: outlookClassicRuleset },
   { name: 'Outlook New', ruleset: outlookNewRuleset },
-  { name: 'Daum/Kakao Mail', ruleset: daumRuleset },
+  { name: 'Daum/Kakao', ruleset: daumRuleset },
 ] as const
 
 const DEFAULT_HTML = `<!DOCTYPE html>
@@ -166,6 +176,59 @@ function SizeCounter({ html }: { html: string }) {
 
 type LayoutMode = 'split' | 'html' | 'preview'
 
+const ALL_CLIENT_NAMES: string[] = CLIENTS.map((c) => c.name)
+
+function useEnabledClients() {
+  const [enabled, setEnabled] = useState<Set<string>>(() => {
+    if (typeof window === 'undefined') return new Set(ALL_CLIENT_NAMES)
+    try {
+      const stored = localStorage.getItem('sticky:enabledClients')
+      if (stored) {
+        const parsed = JSON.parse(stored) as string[]
+        const valid = parsed.filter((n) => ALL_CLIENT_NAMES.includes(n))
+        if (valid.length > 0) return new Set(valid)
+      }
+    } catch { /* ignore */ }
+    return new Set(ALL_CLIENT_NAMES)
+  })
+
+  const toggle = useCallback((name: string) => {
+    setEnabled((prev) => {
+      const next = new Set(prev)
+      if (next.has(name)) {
+        if (next.size === 1) return prev
+        next.delete(name)
+      } else {
+        next.add(name)
+      }
+      localStorage.setItem('sticky:enabledClients', JSON.stringify([...next]))
+      return next
+    })
+  }, [])
+
+  return { enabled, toggle }
+}
+
+function useOnboarding() {
+  const [visible, setVisible] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false
+    return getInitialVisibility()
+  })
+  const [step, setStep] = useState(0)
+
+  const complete = useCallback(() => {
+    markOnboardingComplete()
+    setVisible(false)
+  }, [])
+
+  const restart = useCallback(() => {
+    setStep(0)
+    setVisible(true)
+  }, [])
+
+  return { visible, step, setStep, complete, restart }
+}
+
 export default function Home() {
   const [html, setHtml] = useState<string>(DEFAULT_HTML)
   const previousHtmlRef = useRef<string | null>(null)
@@ -174,6 +237,33 @@ export default function Home() {
   const [splitPercent, setSplitPercent] = useState(45)
   const isDragging = useRef(false)
   const mainRef = useRef<HTMLDivElement>(null)
+  const { enabled: enabledClients, toggle: toggleClient } = useEnabledClients()
+  const [showSendModal, setShowSendModal] = useState(false)
+  const editorWrapperRef = useRef<HTMLDivElement>(null)
+  const previewAreaRef = useRef<HTMLDivElement>(null)
+  const clientsBarRef = useRef<HTMLDivElement>(null)
+  const { visible: onboardingVisible, complete: onboardingComplete, restart: onboardingRestart } = useOnboarding()
+
+  const onboardingSteps = [
+    {
+      targetRef: editorWrapperRef,
+      title: 'HTML 이메일 에디터',
+      description: '이곳에 HTML 이메일 코드를 붙여넣거나 직접 작성하세요. 기본으로 예시 템플릿이 로드되어 있습니다.',
+      placement: 'bottom' as const,
+    },
+    {
+      targetRef: previewAreaRef,
+      title: '클라이언트별 실시간 프리뷰',
+      description: '에디터를 수정하면 오른쪽 프리뷰가 즉시 갱신됩니다. 네이버, Gmail, Outlook 등 각 클라이언트의 CSS 제한사항이 다르게 적용됩니다.',
+      placement: 'bottom' as const,
+    },
+    {
+      targetRef: clientsBarRef,
+      title: '프리뷰할 클라이언트 선택',
+      description: '네이버는 style 블록을 제거하고, Gmail은 조건부로 제거하며, Outlook Classic은 Word 엔진을 사용합니다. 원하는 클라이언트만 선택해 비교하세요.',
+      placement: 'bottom' as const,
+    },
+  ]
 
   const handleDragStart = useCallback((e: ReactMouseEvent) => {
     e.preventDefault()
@@ -238,8 +328,17 @@ export default function Home() {
   return (
     <div className="flex flex-col h-full">
       <header className="flex items-center justify-between h-12 px-4 bg-zinc-900 border-b border-zinc-700">
-        <h1 className="text-sm font-semibold text-zinc-300">Sticky — HTML Email Preview</h1>
+        <h1 className="text-sm font-semibold text-zinc-300">Sticky - HTML Email Preview</h1>
         <div className="flex items-center gap-3">
+          {!onboardingVisible && (
+            <button
+              onClick={onboardingRestart}
+              className="px-3 py-1 text-xs rounded bg-zinc-700 text-zinc-300 hover:bg-zinc-600"
+              title="온보딩 가이드 다시 보기"
+            >
+              ?
+            </button>
+          )}
           <div className="flex items-center gap-1 mr-2 border-r border-zinc-700 pr-3">
             {(['html', 'split', 'preview'] as const).map((mode) => (
               <button
@@ -271,6 +370,12 @@ export default function Home() {
             Inline CSS
           </button>
           <button
+            onClick={() => setShowSendModal(true)}
+            className="px-3 py-1 text-xs rounded bg-green-600 text-white hover:bg-green-500"
+          >
+            메일 발송
+          </button>
+          <button
             onClick={() => fileInputRef.current?.click()}
             className="px-3 py-1 text-xs rounded bg-zinc-700 text-zinc-300 hover:bg-zinc-600"
           >
@@ -294,6 +399,7 @@ export default function Home() {
       >
         {layoutMode !== 'preview' && (
           <div
+            ref={editorWrapperRef}
             className="flex flex-col flex-shrink-0"
             style={{ width: layoutMode === 'html' ? '100%' : `${splitPercent}%` }}
           >
@@ -308,21 +414,51 @@ export default function Home() {
         )}
         {layoutMode !== 'html' && (
           <div
-            className="flex flex-row flex-1 min-w-0 overflow-x-auto"
+            ref={previewAreaRef}
+            className="flex flex-col flex-1 min-w-0"
             style={{ width: layoutMode === 'preview' ? '100%' : undefined }}
           >
-            {CLIENTS.map((client) => (
-              <PreviewPane
-                key={client.name}
-                html={html}
-                clientName={client.name}
-                ruleset={client.ruleset}
-              />
-            ))}
+            <div ref={clientsBarRef} className="flex items-center gap-2 h-9 px-3 bg-zinc-50 border-b border-zinc-200 flex-shrink-0">
+              <span className="text-[10px] font-medium text-zinc-400 uppercase tracking-wide mr-1">Clients</span>
+              {CLIENTS.map((client) => (
+                <label
+                  key={client.name}
+                  className="flex items-center gap-1 cursor-pointer select-none"
+                >
+                  <input
+                    type="checkbox"
+                    checked={enabledClients.has(client.name)}
+                    onChange={() => toggleClient(client.name)}
+                    className="w-3 h-3 rounded border-zinc-300 text-blue-600 focus:ring-blue-500 focus:ring-1 accent-blue-600"
+                  />
+                  <span className={`text-xs ${enabledClients.has(client.name) ? 'text-zinc-700 font-medium' : 'text-zinc-400'}`}>
+                    {client.name}
+                  </span>
+                </label>
+              ))}
+            </div>
+            <div className="flex flex-row flex-1 min-h-0 overflow-x-auto">
+              {CLIENTS.filter((client) => enabledClients.has(client.name)).map((client) => (
+                <PreviewPane
+                  key={client.name}
+                  html={html}
+                  clientName={client.name}
+                  ruleset={client.ruleset}
+                />
+              ))}
+            </div>
           </div>
         )}
       </main>
-      <WarningPanel html={html} clients={[...CLIENTS]} />
+      <WarningPanel html={html} clients={CLIENTS.filter((c) => enabledClients.has(c.name))} />
+      {showSendModal && <SendEmailModal html={html} onClose={() => setShowSendModal(false)} />}
+      {onboardingVisible && (
+        <OnboardingOverlay
+          steps={onboardingSteps}
+          onComplete={onboardingComplete}
+          onSkip={onboardingComplete}
+        />
+      )}
     </div>
   )
 }
