@@ -273,11 +273,75 @@ Plans:
   3. Chrome, Firefox, Safari 최신 버전에서 레이아웃 깨짐 없이 동작한다
   4. Lighthouse Performance 점수 80 이상을 달성한다
 
+### v3.0 사용성 개선
+
+### Phase 19: 온보딩 플로우
+**Goal**: 처음 방문한 사용자가 Sticky의 목적을 이해하고 자기 템플릿으로 검수를 시작하기까지 자연스럽게 안내한다
+**Depends on**: Phase 18 (v2 완료)
+**Requirements**: (none - UX 개선)
+**Success Criteria** (what must be TRUE):
+  1. 첫 방문 사용자에게 도구의 목적과 주요 기능을 설명하는 온보딩 가이드가 표시된다
+  2. 샘플 템플릿의 역할과 각 클라이언트별 프리뷰 차이를 안내한다
+  3. 사용자가 온보딩을 건너뛰거나 다시 볼 수 있다
+  4. 온보딩 완료 여부가 저장되어 재방문 시 다시 표시되지 않는다
+**UI hint**: yes
+
+### Phase 20: HTML 소스 복사
+**Goal**: 검수 완료된 HTML 소스코드를 클립보드에 복사하여 프로젝트에 바로 가져갈 수 있다
+**Depends on**: Phase 18 (v2 완료)
+**Requirements**: (none - UX 개선)
+**Success Criteria** (what must be TRUE):
+  1. 헤더에 "소스 복사" 버튼이 있으며 클릭 시 에디터의 HTML이 클립보드에 복사된다
+  2. 복사 완료 시 시각적 피드백이 제공된다 (버튼 텍스트 변경 또는 토스트)
+  3. 클립보드 API 미지원 브라우저에서도 fallback이 동작한다
+
+### Phase 21: 다크모드 프리뷰
+**Goal**: 이메일 클라이언트의 다크모드에서 템플릿이 어떻게 보이는지 시뮬레이션으로 확인할 수 있다
+**Depends on**: Phase 18 (v2 완료)
+**Requirements**: (none - 시뮬레이션 확장)
+**Success Criteria** (what must be TRUE):
+  1. 각 프리뷰 패널의 뷰포트 토글 옆에 다크모드 토글이 있다
+  2. 다크모드 활성화 시 `prefers-color-scheme: dark` 미디어쿼리가 적용된다
+  3. 다크모드 미대응 템플릿의 경우 클라이언트별 자동 색상 반전 로직이 시뮬레이션된다
+  4. 라이트/다크 모드 전환 시 프리뷰가 즉시 갱신된다
+**UI hint**: yes
+
+### Phase 22: 링크 검증
+**Goal**: 템플릿 내 링크의 문제점을 자동으로 탐지하여 발송 전 실수를 방지한다
+**Depends on**: Phase 12 (WarningPanel 확장)
+**Requirements**: (none - 검수 품질 향상)
+**Success Criteria** (what must be TRUE):
+  1. 빈 href, `#` placeholder, `example.com` 링크를 경고로 표시한다
+  2. 프로토콜 누락 (예: `www.example.com`) 링크를 탐지한다
+  3. 링크 검증 결과가 CSS 호환성 패널과 함께 통합 표시된다
+  4. HTML 수정 시 링크 검증 결과가 실시간으로 갱신된다
+
+### Phase 23: 접근성 검사
+**Goal**: 이메일 템플릿의 접근성 문제를 자동으로 검사하여 WCAG 기준을 충족하도록 안내한다
+**Depends on**: Phase 22 (검증 패널 확장)
+**Requirements**: (none - 검수 품질 향상)
+**Success Criteria** (what must be TRUE):
+  1. img 태그의 alt 텍스트 누락을 경고로 표시한다
+  2. 텍스트/배경 색상 대비가 WCAG AA 기준 미달인 경우 경고한다
+  3. 시맨틱 구조 문제 (예: 헤딩 순서 건너뛰기)를 탐지한다
+  4. 접근성 점수 또는 통과/미통과 요약을 제공한다
+
+### Phase 24: 스팸 트리거 분석
+**Goal**: 이메일이 스팸 필터에 걸릴 가능성을 사전에 분석하여 도달률을 높인다
+**Depends on**: Phase 22 (검증 패널 확장)
+**Requirements**: (none - 검수 품질 향상)
+**Success Criteria** (what must be TRUE):
+  1. 스팸 트리거 키워드 (과도한 대문자, 감탄사 남용 등)를 탐지한다
+  2. 이미지/텍스트 비율을 분석하여 이미지 과다 사용을 경고한다
+  3. 전체 스팸 위험도 점수를 요약 표시한다
+  4. 각 경고 항목에 개선 방법을 안내한다
+
 ## Progress
 
 **Execution Order:**
 Phases 1-10 (v1.0): Complete.
-Phases 11-18 (v2.0): 11 → 12 → 13 → 14 → 15 → 16 → 17 → 18
+Phases 11-18 (v2.0): Complete.
+Phases 19-24 (v3.0): 19 → 20 → 21 → 22 → 23 → 24
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
@@ -299,3 +363,9 @@ Phases 11-18 (v2.0): 11 → 12 → 13 → 14 → 15 → 16 → 17 → 18
 | 16. Outlook 시뮬레이션 | v2.0 | 0/? | Not started | - |
 | 17. 광고 수익화 | v2.0 | 0/? | Not started | - |
 | 18. v2 런칭 준비 | v2.0 | 0/? | Not started | - |
+| 19. 온보딩 플로우 | v3.0 | 0/? | Not started | - |
+| 20. HTML 소스 복사 | v3.0 | 0/? | Not started | - |
+| 21. 다크모드 프리뷰 | v3.0 | 0/? | Not started | - |
+| 22. 링크 검증 | v3.0 | 0/? | Not started | - |
+| 23. 접근성 검사 | v3.0 | 0/? | Not started | - |
+| 24. 스팸 트리거 분석 | v3.0 | 0/? | Not started | - |

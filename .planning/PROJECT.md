@@ -8,18 +8,17 @@ HTML 이메일을 입력하면 한국에서 주로 사용되는 이메일 클라
 
 각 이메일 클라이언트의 CSS 제한사항을 정확하게 시뮬레이션하여 실제 클라이언트에서 보이는 것과 거의 동일한 프리뷰를 제공하는 것.
 
-## Current Milestone: v2.0 프로덕션 확장
+## Current Milestone: v3.0 사용성 개선
 
-**Goal:** 레이아웃 개선, CSS 경고 시스템, 추가 클라이언트 지원, 광고 수익화로 런칭 가능한 프로덕션 서비스로 확장
+**Goal:** 검수 도구로서의 완성도를 높여 온보딩부터 검증, 소스 추출까지 원스톱 워크플로우를 제공한다
 
 **Target features:**
-- 레이아웃 개선 (에디터 높이 꽉채움, 프리뷰 수평 배치 + 수평 스크롤)
-- CSS 호환성 경고 패널
-- Inline CSS 자동 변환 (`<style>` → inline style)
-- Gmail 102KB 사이즈 카운터 + 경고
-- HTML 파일 업로드 / 드래그앤드롭
-- Outlook Classic + New 시뮬레이션
-- 광고 기반 수익화 (Google AdSense 등)
+- 온보딩 플로우 (첫 방문자 가이드)
+- HTML 소스 복사 (검수 후 클립보드 복사)
+- 다크모드 프리뷰 (클라이언트별 다크모드 시뮬레이션)
+- 링크 검증 (빈 링크, placeholder, 프로토콜 누락 탐지)
+- 접근성 검사 (alt 텍스트, 색상 대비, 시맨틱 구조)
+- 스팸 트리거 분석 (스팸 키워드, 이미지/텍스트 비율)
 
 ## Requirements
 
@@ -33,15 +32,24 @@ HTML 이메일을 입력하면 한국에서 주로 사용되는 이메일 클라
 - [x] 실시간 프리뷰 반영 (EDIT-03)
 - [x] 모바일/데스크톱 뷰포트 토글 (UX-02)
 
-### Active (v2.0)
+### Validated (v2.0)
 
-- [ ] 레이아웃 개선 — 에디터 뷰포트 꽉채움, 프리뷰 수평 배치 + 수평 스크롤
-- [ ] CSS 호환성 경고 패널
-- [ ] Inline CSS 자동 변환
-- [ ] Gmail 102KB 사이즈 카운터
-- [ ] HTML 파일 업로드 / 드래그앤드롭
-- [ ] Outlook 시뮬레이션 (Classic + New)
-- [ ] 광고 기반 수익화
+- [x] 레이아웃 개선 — 에디터 뷰포트 꽉채움, 프리뷰 수평 배치 + 수평 스크롤 (LAYOUT-01, LAYOUT-02)
+- [x] CSS 호환성 경고 패널 (CSS-01)
+- [x] Inline CSS 자동 변환 (CSS-02)
+- [x] Gmail 102KB 사이즈 카운터 (CSS-03)
+- [x] HTML 파일 업로드 / 드래그앤드롭 (INPUT-01)
+- [x] Outlook 시뮬레이션 — Classic + New (OUT-01, OUT-02)
+- [x] 광고 기반 수익화 (AD-01)
+
+### Active (v3.0)
+
+- [ ] 온보딩 플로우 — 첫 방문자 가이드 (UX-03)
+- [ ] HTML 소스 복사 — 클립보드 복사 (UX-04)
+- [ ] 다크모드 프리뷰 — 클라이언트별 다크모드 시뮬레이션 (SIM-04)
+- [ ] 링크 검증 — 빈 링크, placeholder 탐지 (QA-01)
+- [ ] 접근성 검사 — alt 텍스트, 색상 대비, 시맨틱 구조 (QA-02)
+- [ ] 스팸 트리거 분석 — 스팸 키워드, 이미지/텍스트 비율 (QA-03)
 
 ### Out of Scope
 
@@ -49,10 +57,9 @@ HTML 이메일을 입력하면 한국에서 주로 사용되는 이메일 클라
 - 모바일 앱 — 웹 서비스로 시작
 - 사용자 계정/로그인 — 누구나 바로 사용 가능한 공개 서비스
 - 유료 기능 — 광고 수익 모델
-- 공유 URL — v3
-- 다크모드 프리뷰 — v3
-- 프리헤더/제목줄 미리보기 — v3
-- 클라이언트별 CSS 복사/내보내기 — v3
+- 공유 URL — 향후 검토
+- 프리헤더/제목줄 미리보기 — 향후 검토
+- 클라이언트별 CSS 복사/내보내기 — 향후 검토
 
 ## Context
 
@@ -94,4 +101,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-24 — v2.0 마일스톤 시작. v1.0 완료 (10 phases, 8 requirements validated)*
+*Last updated: 2026-04-25 — v3.0 마일스톤 시작. v2.0 완료 (18 phases, 모든 requirements validated)*

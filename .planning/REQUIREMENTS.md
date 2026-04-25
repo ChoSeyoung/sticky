@@ -48,11 +48,27 @@
 
 - [ ] **AD-01**: 페이지에 광고 영역이 표시되며 사용자 경험을 방해하지 않는 위치에 배치된다
 
-## v3 Requirements (Deferred)
+## v3 Requirements
+
+### 온보딩 & UX
+
+- [ ] **UX-03**: 첫 방문 사용자에게 도구의 목적과 사용법을 안내하는 온보딩 가이드가 표시된다
+- [ ] **UX-04**: 사용자가 현재 에디터의 HTML을 클립보드에 복사할 수 있다
+
+### 시뮬레이션 확장
+
+- [ ] **SIM-04**: 사용자가 각 클라이언트의 다크모드에서 이메일이 어떻게 보이는지 시뮬레이션으로 확인할 수 있다
+
+### 검증 & 품질
+
+- [ ] **QA-01**: 사용자가 템플릿 내 빈 링크, placeholder 링크, 프로토콜 누락 링크를 자동으로 탐지할 수 있다
+- [ ] **QA-02**: 사용자가 이메일 템플릿의 접근성 문제(alt 텍스트 누락, 색상 대비, 시맨틱 구조)를 자동 검사할 수 있다
+- [ ] **QA-03**: 사용자가 이메일의 스팸 필터 위험 요소(스팸 키워드, 이미지/텍스트 비율)를 사전 분석할 수 있다
+
+## Future Requirements
 
 - **COL-01**: User can share preview via URL
 - **COL-02**: User can copy client-specific inlined HTML for export
-- **ENH-05**: User can toggle dark mode preview per client
 - **ENH-06**: User sees preheader/subject line preview above email body
 
 ## Out of Scope
@@ -62,8 +78,6 @@
 | Real screenshot capture | Infrastructure complexity, breaks static deployment constraint |
 | User accounts / login | Tool should be instantly usable without auth |
 | Mobile app | Web-first approach |
-| Spam score checking | Requires server-side processing |
-| Send test email to real inbox | SMTP infrastructure out of scope |
 | AI-generated email HTML | Distraction from core preview value |
 
 ## Traceability
@@ -78,21 +92,28 @@
 | SIM-03 | Phase 3 (v1) | Complete |
 | UX-01 | Phase 7 (v1) | Complete |
 | UX-02 | Phase 8 (v1) | Complete |
-| LAYOUT-01 | Phase 11 (v2) | Pending |
-| LAYOUT-02 | Phase 11 (v2) | Pending |
-| CSS-01 | Phase 12 (v2) | Pending |
-| CSS-02 | Phase 13 (v2) | Pending |
-| CSS-03 | Phase 14 (v2) | Pending |
-| INPUT-01 | Phase 15 (v2) | Pending |
-| OUT-01 | Phase 16 (v2) | Pending |
-| OUT-02 | Phase 16 (v2) | Pending |
-| AD-01 | Phase 17 (v2) | Pending |
+| LAYOUT-01 | Phase 11 (v2) | Complete |
+| LAYOUT-02 | Phase 11 (v2) | Complete |
+| CSS-01 | Phase 12 (v2) | Complete |
+| CSS-02 | Phase 13 (v2) | Complete |
+| CSS-03 | Phase 14 (v2) | Complete |
+| INPUT-01 | Phase 15 (v2) | Complete |
+| OUT-01 | Phase 16 (v2) | Complete |
+| OUT-02 | Phase 16 (v2) | Complete |
+| AD-01 | Phase 17 (v2) | Complete |
+| UX-03 | Phase 19 (v3) | Pending |
+| UX-04 | Phase 20 (v3) | Pending |
+| SIM-04 | Phase 21 (v3) | Pending |
+| QA-01 | Phase 22 (v3) | Pending |
+| QA-02 | Phase 23 (v3) | Pending |
+| QA-03 | Phase 24 (v3) | Pending |
 
 **Coverage:**
 - v1 requirements: 8 total — 8 complete
-- v2 requirements: 9 total — 9 mapped to phases
-- Mapped to phases: 9/9 (100%)
+- v2 requirements: 9 total — 9 complete
+- v3 requirements: 6 total — 6 mapped to phases
+- Mapped to phases: 6/6 (100%)
 
 ---
 *Requirements defined: 2026-04-23*
-*Last updated: 2026-04-24 — v2.0 traceability mapped (Phases 11-18)*
+*Last updated: 2026-04-25 — v3.0 requirements defined and mapped (Phases 19-24)*
