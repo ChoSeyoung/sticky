@@ -147,7 +147,7 @@ export function analyzeAccessibility(html: string): AccessibilitySummary {
   // ─── 2. Heading skip detection ─────────────────────────────────────────────
   const headings: { level: number; lineNumber: number }[] = []
   $('h1, h2, h3, h4, h5, h6').each((_, el) => {
-    const level = parseInt((el as cheerio.Element & { tagName: string }).tagName[1], 10)
+    const level = parseInt(((el as unknown) as { tagName: string }).tagName[1], 10)
     const tagHtml = $.html(el)
     headings.push({ level, lineNumber: lineOf(html, tagHtml) })
   })
