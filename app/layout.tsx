@@ -15,6 +15,27 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Sticky — Korean Email Client Preview",
   description: "HTML 이메일을 입력하면 네이버, Gmail, 다음/카카오 메일에서 어떻게 보이는지 실시간으로 시뮬레이션합니다.",
+  metadataBase: new URL('https://sticky-kappa.vercel.app'),
+  openGraph: {
+    title: "Sticky - 한국어 이메일 클라이언트 프리뷰",
+    description: "HTML 이메일을 입력하면 네이버, Gmail, 다음/카카오 메일에서 어떻게 보이는지 실시간으로 시뮬레이션합니다.",
+    url: 'https://sticky-kappa.vercel.app',
+    siteName: 'Sticky',
+    locale: 'ko_KR',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: "Sticky - 한국어 이메일 클라이언트 프리뷰",
+    description: "HTML 이메일을 입력하면 네이버, Gmail, 다음/카카오 메일에서 어떻게 보이는지 실시간으로 시뮬레이션합니다.",
+  },
+  alternates: {
+    canonical: 'https://sticky-kappa.vercel.app',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
