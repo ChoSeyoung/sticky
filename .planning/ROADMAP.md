@@ -326,10 +326,10 @@ Plans:
   2. 프로토콜 누락 (예: `www.example.com`) 링크를 탐지한다
   3. 링크 검증 결과가 CSS 호환성 패널과 함께 통합 표시된다
   4. HTML 수정 시 링크 검증 결과가 실시간으로 갱신된다
-**Plans:** 2 plans
+**Plans:** 2/2 plans complete
 Plans:
-- [ ] 22-01-PLAN.md — TDD: analyzeLinkProblems pure function + unit tests
-- [ ] 22-02-PLAN.md — WarningPanel extension with link warning integration
+- [x] 22-01-PLAN.md — TDD: analyzeLinkProblems pure function + unit tests
+- [x] 22-02-PLAN.md — WarningPanel extension with link warning integration
 
 ### Phase 23: 접근성 검사
 **Goal**: 이메일 템플릿의 접근성 문제를 자동으로 검사하여 WCAG 기준을 충족하도록 안내한다
@@ -381,6 +381,6 @@ Phases 19-24 (v3.0): 19 → 20 → 21 → 22 → 23 → 24
 | 19. 온보딩 플로우 | v3.0 | 2/2 | Complete    | 2026-04-25 |
 | 20. HTML 소스 복사 | v3.0 | 1/1 | Complete    | 2026-04-25 |
 | 21. 다크모드 프리뷰 | v3.0 | 2/2 | Complete    | 2026-04-25 |
-| 22. 링크 검증 | v3.0 | 0/2 | Not started | - |
+| 22. 링크 검증 | v3.0 | 2/2 | Complete    | 2026-04-26 |
 | 23. 접근성 검사 | v3.0 | 0/? | Not started | - |
 | 24. 스팸 트리거 분석 | v3.0 | 0/? | Not started | - |
