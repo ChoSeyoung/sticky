@@ -72,6 +72,7 @@ None.
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 260426-vyl | SEO 최적화: 메타데이터, robots.txt, sitemap.xml | 2026-04-26 | b69f6ca | [260426-vyl](./quick/260426-vyl-seo-optimization-for-korean-email-previe/) |
+| 260426-w4u | GEO 최적화: JSON-LD, 시맨틱 HTML, FAQ | 2026-04-26 | 37f45f0 | [260426-w4u](./quick/260426-w4u-geo-optimization-for-ai-search-engines/) |
 
 ## Deferred Items
 
