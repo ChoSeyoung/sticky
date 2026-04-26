@@ -30,7 +30,7 @@ export default function AdBanner({ slot, format = 'horizontal' }: AdBannerProps)
       <ins
         className="adsbygoogle"
         style={{ display: 'block', width: '100%', height: '50px' }}
-        data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+        data-ad-client="ca-pub-4595496614643694"
         data-ad-slot={slot}
         data-ad-format={format}
         data-full-width-responsive="false"
