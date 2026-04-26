@@ -294,23 +294,21 @@ describe('analyzeSpamTriggers', () => {
     })
 
     it('1 warning only: riskLevel === "Low"', () => {
-      // Single repeated-punctuation warning
+      // "Sale!!!" triggers exactly 1 repeated-punctuation warning and nothing else
       const result = analyzeSpamTriggers('<p>Sale!!!</p>')
-      const warnCount = result.warnings.filter(w => w.severity === 'warning').length
-      const errCount = result.warnings.filter(w => w.severity === 'error').length
-      if (warnCount === 1 && errCount === 0) {
-        expect(result.riskLevel).toBe('Low')
-      }
+      expect(result.warnings.filter(w => w.severity === 'warning')).toHaveLength(1)
+      expect(result.warnings.filter(w => w.severity === 'error')).toHaveLength(0)
+      expect(result.riskLevel).toBe('Low')
     })
 
-    it('3 warnings, 0 errors: riskLevel === "Medium"', () => {
-      // Use multiple spam keywords to generate exactly 3 warnings without any error
-      const result = analyzeSpamTriggers('<p>FREE WINNER CASH offer today</p>')
-      const errCount = result.warnings.filter(w => w.severity === 'error').length
+    it('2-4 warnings, 0 errors: riskLevel === "Medium"', () => {
+      // "FREE INCOME offer today": FREE (keyword) + INCOME (excessive-caps + keyword) = 3 warnings, 0 errors
+      const result = analyzeSpamTriggers('<p>FREE INCOME offer today</p>')
+      expect(result.warnings.filter(w => w.severity === 'error')).toHaveLength(0)
       const warnCount = result.warnings.filter(w => w.severity === 'warning').length
-      if (errCount === 0 && warnCount >= 2 && warnCount <= 4) {
-        expect(result.riskLevel).toBe('Medium')
-      }
+      expect(warnCount).toBeGreaterThanOrEqual(2)
+      expect(warnCount).toBeLessThanOrEqual(4)
+      expect(result.riskLevel).toBe('Medium')
     })
 
     it('1 error: riskLevel === "High"', () => {
@@ -322,15 +320,13 @@ describe('analyzeSpamTriggers', () => {
     })
 
     it('5+ warnings: riskLevel === "High"', () => {
-      // Multiple spam keywords to trigger 5+ warnings
+      // FREE WINNER CASH EARN PROFIT LOAN: 6 keyword matches + WINNER/PROFIT/INCOME caps = 8+ warnings
       const result = analyzeSpamTriggers(
         '<p>FREE WINNER CASH EARN PROFIT LOAN offer today</p>',
       )
-      const warnCount = result.warnings.filter(w => w.severity === 'warning').length
-      const errCount = result.warnings.filter(w => w.severity === 'error').length
-      if (errCount === 0 && warnCount >= 5) {
-        expect(result.riskLevel).toBe('High')
-      }
+      expect(result.warnings.filter(w => w.severity === 'error')).toHaveLength(0)
+      expect(result.warnings.filter(w => w.severity === 'warning').length).toBeGreaterThanOrEqual(5)
+      expect(result.riskLevel).toBe('High')
     })
   })
 
