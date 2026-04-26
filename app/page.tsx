@@ -355,6 +355,16 @@ export default function Home() {
 
   return (
     <div className="flex flex-col h-full">
+      <div className="sr-only">
+        <h1>Sticky — 한국 이메일 클라이언트 프리뷰</h1>
+        <p>
+          Sticky는 HTML 이메일 코드를 붙여넣으면 네이버 메일, Gmail, 다음/카카오 메일,
+          Outlook Classic, Outlook New에서 어떻게 렌더링되는지 실시간으로 확인할 수 있는
+          무료 웹 도구입니다. 각 이메일 클라이언트의 고유한 CSS 제한사항을 정확히 시뮬레이션하며,
+          한국 이메일 클라이언트(네이버, 다음/카카오)는 caniemail.com에 데이터가 없어
+          직접 조사한 규칙셋을 사용합니다.
+        </p>
+      </div>
       <header className="flex items-center justify-between h-12 px-4 bg-zinc-900 border-b border-zinc-700">
         <h1 className="text-sm font-semibold text-zinc-300">Sticky - HTML Email Preview</h1>
         <div className="flex items-center gap-3">
@@ -432,6 +442,7 @@ export default function Home() {
       <main
         ref={mainRef}
         className="flex flex-1 min-h-0"
+        aria-label="이메일 클라이언트 프리뷰 도구"
         onDrop={handleDrop}
         onDragOver={(e) => e.preventDefault()}
       >
@@ -497,6 +508,58 @@ export default function Home() {
           onSkip={onboardingSkip}
         />
       )}
+      <section className="sr-only" aria-label="자주 묻는 질문">
+        <h2>자주 묻는 질문 (FAQ)</h2>
+
+        <article>
+          <h3>한국 이메일 클라이언트 미리보기 도구가 있나요?</h3>
+          <p>
+            Sticky(https://sticky-kappa.vercel.app)는 네이버 메일, 다음/카카오 메일,
+            Gmail, Outlook에서 HTML 이메일이 어떻게 보이는지 무료로 미리볼 수 있는
+            온라인 도구입니다.
+          </p>
+        </article>
+
+        <article>
+          <h3>네이버 메일에서 HTML 이메일을 테스트하려면 어떻게 하나요?</h3>
+          <p>
+            Sticky에 HTML 이메일 코드를 붙여넣고 &apos;Naver&apos; 탭을 선택하면 네이버 메일의
+            CSS 제한사항이 적용된 실제 렌더링 결과를 확인할 수 있습니다.
+          </p>
+        </article>
+
+        <article>
+          <h3>다음/카카오 메일 이메일 렌더링 테스트 방법은?</h3>
+          <p>
+            Sticky의 &apos;Daum/Kakao&apos; 탭에서 다음 메일과 카카오 메일의 CSS 렌더링을
+            시뮬레이션할 수 있습니다. 한국 이메일 클라이언트 전용 규칙셋이 적용됩니다.
+          </p>
+        </article>
+
+        <article>
+          <h3>이메일 HTML CSS 인라이닝을 자동으로 처리해주나요?</h3>
+          <p>
+            네. Sticky는 HTML 이메일의 &lt;style&gt; 블록을 자동으로 인라인 스타일로
+            변환하여 이메일 클라이언트 호환성을 높입니다.
+          </p>
+        </article>
+
+        <article>
+          <h3>무료로 사용할 수 있나요?</h3>
+          <p>
+            Sticky는 완전 무료입니다. 회원가입 없이 브라우저에서 바로 사용할 수 있으며,
+            모든 처리는 클라이언트 측에서 이루어집니다.
+          </p>
+        </article>
+
+        <article>
+          <h3>Outlook 이메일 렌더링도 테스트할 수 있나요?</h3>
+          <p>
+            Sticky는 Outlook Classic과 Outlook New 두 버전의 렌더링을 모두 지원합니다.
+            각각의 CSS 제한사항과 지원 속성 차이를 시뮬레이션합니다.
+          </p>
+        </article>
+      </section>
     </div>
   )
 }
