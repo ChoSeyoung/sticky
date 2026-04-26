@@ -54,6 +54,40 @@ export default function RootLayout({
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
           crossOrigin="anonymous"
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebApplication",
+              "name": "Sticky — Korean Email Client Preview",
+              "alternateName": ["한국 이메일 클라이언트 프리뷰", "이메일 미리보기 도구"],
+              "url": "https://sticky-kappa.vercel.app",
+              "description": "HTML 이메일이 네이버 메일, Gmail, 다음/카카오 메일, Outlook에서 어떻게 보이는지 실시간으로 시뮬레이션하는 무료 웹 도구입니다. 각 이메일 클라이언트의 CSS 제한사항을 정확히 반영합니다.",
+              "applicationCategory": "DeveloperApplication",
+              "operatingSystem": "Web",
+              "browserRequirements": "Requires JavaScript",
+              "inLanguage": "ko",
+              "isAccessibleForFree": true,
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "KRW"
+              },
+              "featureList": [
+                "네이버 메일 CSS 시뮬레이션",
+                "Gmail CSS 시뮬레이션",
+                "다음/카카오 메일 CSS 시뮬레이션",
+                "Outlook Classic CSS 시뮬레이션",
+                "Outlook New CSS 시뮬레이션",
+                "실시간 HTML 이메일 미리보기",
+                "CSS 인라이닝 자동 처리",
+                "이메일 호환성 경고 패널"
+              ],
+              "keywords": "HTML 이메일 테스트, 이메일 미리보기, 네이버 메일 미리보기, 한국 이메일 클라이언트, 이메일 디자인 도구"
+            })
+          }}
+        />
       </head>
       <body className="h-full flex flex-col">{children}</body>
     </html>
