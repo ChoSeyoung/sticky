@@ -438,7 +438,7 @@ export default function Home() {
           />
         </div>
       </header>
-      <AdBanner slot="1234567890" />
+      <AdBanner slot="4863048709" />
       <main
         ref={mainRef}
         className="flex flex-1 min-h-0"
