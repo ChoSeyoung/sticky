@@ -334,12 +334,16 @@ Plans:
 ### Phase 23: 접근성 검사
 **Goal**: 이메일 템플릿의 접근성 문제를 자동으로 검사하여 WCAG 기준을 충족하도록 안내한다
 **Depends on**: Phase 22 (검증 패널 확장)
-**Requirements**: (none - 검수 품질 향상)
+**Requirements**: QA-02
 **Success Criteria** (what must be TRUE):
   1. img 태그의 alt 텍스트 누락을 경고로 표시한다
   2. 텍스트/배경 색상 대비가 WCAG AA 기준 미달인 경우 경고한다
   3. 시맨틱 구조 문제 (예: 헤딩 순서 건너뛰기)를 탐지한다
   4. 접근성 점수 또는 통과/미통과 요약을 제공한다
+**Plans:** 2 plans
+Plans:
+- [ ] 23-01-PLAN.md — TDD: analyzeAccessibility pure function + WCAG contrast + unit tests
+- [ ] 23-02-PLAN.md — WarningPanel accessibility section integration + visual checkpoint
 
 ### Phase 24: 스팸 트리거 분석
 **Goal**: 이메일이 스팸 필터에 걸릴 가능성을 사전에 분석하여 도달률을 높인다
@@ -382,5 +386,5 @@ Phases 19-24 (v3.0): 19 → 20 → 21 → 22 → 23 → 24
 | 20. HTML 소스 복사 | v3.0 | 1/1 | Complete    | 2026-04-25 |
 | 21. 다크모드 프리뷰 | v3.0 | 2/2 | Complete    | 2026-04-25 |
 | 22. 링크 검증 | v3.0 | 2/2 | Complete    | 2026-04-26 |
-| 23. 접근성 검사 | v3.0 | 0/? | Not started | - |
+| 23. 접근성 검사 | v3.0 | 0/2 | Not started | - |
 | 24. 스팸 트리거 분석 | v3.0 | 0/? | Not started | - |
