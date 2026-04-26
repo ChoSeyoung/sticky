@@ -354,6 +354,11 @@ Plans:
   2. 이미지/텍스트 비율을 분석하여 이미지 과다 사용을 경고한다
   3. 전체 스팸 위험도 점수를 요약 표시한다
   4. 각 경고 항목에 개선 방법을 안내한다
+**Plans:** 2 plans
+Plans:
+- [ ] 24-01-PLAN.md — TDD: analyzeSpamTriggers pure function + spamKeywords + unit tests
+- [ ] 24-02-PLAN.md — WarningPanel spam section integration
+
 
 ## Progress
 
@@ -387,4 +392,4 @@ Phases 19-24 (v3.0): 19 → 20 → 21 → 22 → 23 → 24
 | 21. 다크모드 프리뷰 | v3.0 | 2/2 | Complete    | 2026-04-25 |
 | 22. 링크 검증 | v3.0 | 2/2 | Complete    | 2026-04-26 |
 | 23. 접근성 검사 | v3.0 | 2/2 | Complete    | 2026-04-26 |
-| 24. 스팸 트리거 분석 | v3.0 | 0/? | Not started | - |
+| 24. 스팸 트리거 분석 | v3.0 | 0/2 | Not started | - |
