@@ -38,6 +38,34 @@ function lineOf(html: string, needle: string): number {
 }
 
 /**
+ * Case-insensitive line number lookup. Folds both needle and haystack to
+ * lowercase before searching so mixed-case occurrences (e.g. "Free", "fREE")
+ * are located correctly.
+ * Falls back to 0 if not found.
+ */
+function lineOfCI(html: string, needle: string): number {
+  const idx = html.toLowerCase().indexOf(needle.toLowerCase())
+  if (idx === -1) return 0
+  return html.slice(0, idx).split('\n').length
+}
+
+/**
+ * Checks whether `text` contains `keyword` as a whole token.
+ * For single-word keywords a word-boundary regex is applied to avoid
+ * matching substrings (e.g. 'WIN' inside 'window').
+ * For multi-word keywords a plain substring match is used because \b does
+ * not span spaces reliably across all Unicode contexts.
+ */
+function containsKeyword(text: string, keyword: string): boolean {
+  if (keyword.includes(' ')) {
+    // Multi-word: substring match is intentional
+    return text.includes(keyword)
+  }
+  // Single-word: require word boundary to reduce false positives
+  return new RegExp(`\\b${keyword}\\b`).test(text)
+}
+
+/**
  * Extract a single CSS property value from an inline style string.
  * E.g. extractCssValue("color: red; font-size: 20px", "color") => "red"
  * Returns null if property not found.
@@ -94,6 +122,21 @@ function isRedColor(value: string): boolean {
   }
 
   return false
+}
+
+/**
+ * Parses a CSS font-size value and returns the equivalent pixel size.
+ * Supports: px (direct), pt (1pt = 4/3px), em/rem (assumes 16px base).
+ * Returns 0 for unrecognised or missing values.
+ */
+function parseFontSizePx(value: string): number {
+  const px = value.match(/^(\d+(?:\.\d+)?)px$/i)
+  if (px) return parseFloat(px[1])
+  const pt = value.match(/^(\d+(?:\.\d+)?)pt$/i)
+  if (pt) return parseFloat(pt[1]) * (4 / 3) // 1pt ≈ 1.333px
+  const em = value.match(/^(\d+(?:\.\d+)?)r?em$/i)
+  if (em) return parseFloat(em[1]) * 16 // assumes 16px root font size
+  return 0
 }
 
 /**
@@ -159,12 +202,12 @@ export function analyzeSpamTriggers(html: string): SpamSummary {
   // ─── 3. English spam keywords detection (D-01.4) ─────────────────────────
   const bodyTextUpper = bodyText.toUpperCase()
   for (const keyword of SPAM_KEYWORDS_EN) {
-    if (bodyTextUpper.includes(keyword)) {
+    if (containsKeyword(bodyTextUpper, keyword)) {
       warnings.push({
         type: 'spam-keyword-en',
         severity: 'warning',
         message: `스팸 키워드가 감지되었습니다: "${keyword}"`,
-        lineNumber: lineOf(html, keyword) || lineOf(html, keyword.toLowerCase()),
+        lineNumber: lineOfCI(html, keyword),
         detail: { matched: keyword },
         fix: `스팸 필터에 걸릴 수 있는 단어입니다. "${keyword}" 대신 다른 표현을 사용해 보세요.`,
       })
@@ -194,8 +237,7 @@ export function analyzeSpamTriggers(html: string): SpamSummary {
     if (!colorValue || !fontSizeValue) return
 
     const isRed = isRedColor(colorValue)
-    const fontSizeMatch = fontSizeValue.match(/^(\d+(?:\.\d+)?)px$/i)
-    const fontSize = fontSizeMatch ? parseFloat(fontSizeMatch[1]) : 0
+    const fontSize = parseFontSizePx(fontSizeValue)
 
     if (isRed && fontSize >= 16) {
       const tagHtml = $.html(el)
